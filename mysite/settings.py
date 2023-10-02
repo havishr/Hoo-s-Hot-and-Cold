@@ -44,7 +44,7 @@ else:
 
 
 # Application definition
-
+#From https://www.youtube.com/watch?v=yO6PP0vEOMc
 SITE_ID = 3
 
 INSTALLED_APPS = [
@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #From https://www.youtube.com/watch?v=yO6PP0vEOMc
     'django.contrib.sites',
     'oauth_app',
     'allauth',
@@ -65,6 +67,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 ]
 
+#From https://www.youtube.com/watch?v=yO6PP0vEOMc
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "SCOPE": [
@@ -91,6 +94,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mysite.urls'
 
+#From https://www.youtube.com/watch?v=yO6PP0vEOMc
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -183,10 +187,12 @@ WHITENOISE_KEEP_ONLY_HASHED_FILES=True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#From https://www.youtube.com/watch?v=yO6PP0vEOMc
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend"
 )
 
+#From https://www.youtube.com/watch?v=yO6PP0vEOMc
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

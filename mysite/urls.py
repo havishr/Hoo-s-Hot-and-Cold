@@ -21,6 +21,8 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    #From https://www.youtube.com/watch?v=yO6PP0vEOMc
     path("accounts/", include("allauth.urls")),
     path("", include("oauth_app.urls"))
 ]

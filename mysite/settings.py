@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+#New imports from https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+#REQUIRED: pip install gunicorn, pip install dj-database-url, pip install whitenoise
+import os
+import secrets
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,17 +25,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5y*p8(9@%_k!wa18a-@91!4f^h8m-&by9#^g3fuf#-0^d&ym5-'
+#From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    default=secrets.token_urlsafe(nbytes=64),
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+#From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
+if not IS_HEROKU_APP:
+    DEBUG = True
+if IS_HEROKU_APP:
+    ALLOWED_HOSTS=["*"]
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    #From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+    'whitenoise.runserver_nostatic',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +59,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    #From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -73,6 +94,15 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+#From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+if IS_HEROKU_APP:
+        DATABASES = {
+        "default": dj_database_url.config(
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True,
+        ),
+    }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -115,7 +145,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+#From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 STATIC_URL = 'static/'
+
+#From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+STORAGES={
+     "staticfiles":{
+          "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+     },
+}
+WHITENOISE_KEEP_ONLY_HASHED_FILES=True
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

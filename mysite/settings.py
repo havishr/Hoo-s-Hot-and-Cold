@@ -45,7 +45,7 @@ else:
 
 # Application definition
 #From https://www.youtube.com/watch?v=yO6PP0vEOMc
-SITE_ID = 3
+SITE_ID = 4
 
 INSTALLED_APPS = [
     #From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
@@ -126,12 +126,13 @@ if IS_HEROKU_APP:
             ssl_require=True,
         ),
     }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
 
 
 # Password validation

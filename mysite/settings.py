@@ -121,6 +121,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 ON_HEROKU = os.environ.get('ON_HEROKU')
 
+ON_HEROKU = True
+
 if ON_HEROKU:
     DATABASES = {
         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))

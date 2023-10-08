@@ -20,7 +20,7 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+DEBUG = True
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -34,7 +34,9 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
+#ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '', 'adv-software-dev-project-82c26c41941d.herokuapp.com').split()
+ALLOWED_HOSTS = ['*']
+print(ALLOWED_HOSTS)
 
 # Application definition
 #From https://www.youtube.com/watch?v=yO6PP0vEOMc

@@ -118,21 +118,31 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 #From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
-if IS_HEROKU_APP:
-        DATABASES = {
-        "default": dj_database_url.config(
-            conn_max_age=600,
-            conn_health_checks=True,
-            ssl_require=True,
-        ),
-    }
+# if IS_HEROKU_APP:
+#         DATABASES = {
+#         "default": dj_database_url.config(
+#             conn_max_age=600,
+#             conn_health_checks=True,
+#             ssl_require=True,
+#         ),
+#     }
+#
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+
+ON_HEROKU = os.environ.get('ON_HEROKU')
+if ON_HEROKU:
+    DATABASE_URL = "postgres://ydrphlufbbobhv:4a8a59f767737e25f73303d7c48715e65dc3ddaa85b2bb30d1de4b9241c856bc@ec2-3-233-77-220.compute-1.amazonaws.com:5432/d944el15fl5i6g"
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+    DATABASE_URL = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
+DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
+
 
 
 # Password validation
@@ -197,3 +207,5 @@ AUTHENTICATION_BACKENDS = (
 #From https://www.youtube.com/watch?v=yO6PP0vEOMc
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+

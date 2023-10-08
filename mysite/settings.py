@@ -135,14 +135,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #         }
 #     }
 
-ON_HEROKU = os.environ.get('ON_HEROKU')
-if ON_HEROKU:
-    DATABASE_URL = "postgres://ydrphlufbbobhv:4a8a59f767737e25f73303d7c48715e65dc3ddaa85b2bb30d1de4b9241c856bc@ec2-3-233-77-220.compute-1.amazonaws.com:5432/d944el15fl5i6g"
-else:
-    DATABASE_URL = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+# ON_HEROKU = os.environ.get('ON_HEROKU')
+# if ON_HEROKU:
+#     DATABASE_URL = "postgres://ydrphlufbbobhv:4a8a59f767737e25f73303d7c48715e65dc3ddaa85b2bb30d1de4b9241c856bc@ec2-3-233-77-220.compute-1.amazonaws.com:5432/d944el15fl5i6g"
+# else:
+#     DATABASE_URL = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+#
+# DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
-DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation

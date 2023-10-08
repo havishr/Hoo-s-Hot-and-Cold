@@ -33,15 +33,8 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-#From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
-IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
-if not IS_HEROKU_APP:
-    DEBUG = True
-if IS_HEROKU_APP:
-    ALLOWED_HOSTS=["*"]
-else:
-    ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
 
 # Application definition
 #From https://www.youtube.com/watch?v=yO6PP0vEOMc
@@ -67,16 +60,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 ]
 
-#From https://www.youtube.com/watch?v=yO6PP0vEOMc
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        "SCOPE": [
-            "profile",
-            "email"
-        ],
-        "AUTH_PARAMS": {"access_type": "online"}
-    }
-}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -136,12 +120,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #     }
 
 ON_HEROKU = os.environ.get('ON_HEROKU')
+
 if ON_HEROKU:
-    DATABASE_URL = "postgres://ydrphlufbbobhv:4a8a59f767737e25f73303d7c48715e65dc3ddaa85b2bb30d1de4b9241c856bc@ec2-3-233-77-220.compute-1.amazonaws.com:5432/d944el15fl5i6g"
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    }
 else:
     DATABASE_URL = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+    DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
-DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
+
 
 
 
@@ -208,4 +196,15 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
+
+#From https://www.youtube.com/watch?v=yO6PP0vEOMc
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email"
+        ],
+        "AUTH_PARAMS": {"access_type": "online"}
+    }
+}
 

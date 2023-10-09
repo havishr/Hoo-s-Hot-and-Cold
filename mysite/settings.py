@@ -128,7 +128,7 @@ if ON_HEROKU:
     DATABASES = {
         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
-    print(os.environ.get('DATABASE_URL'))
+    #print(os.environ.get('DATABASE_URL'))
 else:
     DATABASE_URL = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
     DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}

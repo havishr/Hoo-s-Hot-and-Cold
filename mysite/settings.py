@@ -40,7 +40,7 @@ ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
 
 # Application definition
 #From https://www.youtube.com/watch?v=yO6PP0vEOMc
-SITE_ID = 4
+SITE_ID = 1
 
 INSTALLED_APPS = [
     #From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py

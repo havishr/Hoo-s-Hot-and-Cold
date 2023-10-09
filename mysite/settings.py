@@ -121,8 +121,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #         }
 #     }
 
-#ON_HEROKU = os.environ.get('ON_HEROKU')
-ON_HEROKU = True
+ON_HEROKU = os.environ.get('ON_HEROKU')
+#ON_HEROKU = True
 
 if ON_HEROKU:
     DATABASES = {

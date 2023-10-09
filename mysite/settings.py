@@ -34,8 +34,8 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
-#ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com']
+#ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
+ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -121,7 +121,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #         }
 #     }
 
-ON_HEROKU = os.environ.get('ON_HEROKU')
+#ON_HEROKU = os.environ.get('ON_HEROKU')
+ON_HEROKU = True
 
 if ON_HEROKU:
     DATABASES = {

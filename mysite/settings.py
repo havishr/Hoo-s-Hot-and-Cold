@@ -59,6 +59,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    # game_app -> separate creating and approving games
+    'game_app',
 ]
 
 MIDDLEWARE = [

@@ -39,7 +39,7 @@ ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com', 'localho
 
 # Application definition
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
-SITE_ID = 2
+SITE_ID = 4
 
 INSTALLED_APPS = [
     # From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py

@@ -39,7 +39,7 @@ ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com', 'localho
 
 # Application definition
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
-SITE_ID = 4
+SITE_ID = 5
 
 INSTALLED_APPS = [
     # From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
@@ -191,6 +191,9 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend"
 )
+
+# New user model
+AUTH_USER_MODEL = 'oauth_app.AppUser'
 
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
 LOGIN_REDIRECT_URL = "/"

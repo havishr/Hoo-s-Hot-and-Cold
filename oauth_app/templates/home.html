@@ -8,5 +8,9 @@
         {% else %}
             <a href="{% provider_login_url 'google' %}?next=/">Google Login</a>
         {% endif %}
+
+        {% if user.is_admin %}
+            <h3>ADMIN STATUS</h3>
+        {% endif %}
     </body>
 </html>

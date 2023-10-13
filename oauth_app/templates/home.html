@@ -6,7 +6,7 @@
             <a href="logout">Logout</a>
             <h2>Hello, {{user.username}}!</h2>
         {% else %}
-            <a href="{% provider_login_url 'google' %}?next=/">Google Login</a>
+            <a href="{% provider_login_url 'google' %}?next=/">Log in</a>
         {% endif %}
 
         {% if user.is_admin %}

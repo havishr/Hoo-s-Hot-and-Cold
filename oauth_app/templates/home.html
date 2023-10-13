@@ -11,6 +11,7 @@
 
         {% if user.is_admin %}
             <h3>ADMIN STATUS</h3>
+            <a href="{% url 'approval' %}">Approve Submissions</a>
         {% endif %}
     </body>
 </html>

@@ -16,3 +16,4 @@ def approval_view(request):
         return render(request, "approval.html")
     else:
         return HttpResponseForbidden("Admin Permissions Required!")
+

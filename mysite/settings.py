@@ -192,6 +192,9 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend"
 )
 
+# New user model
+AUTH_USER_MODEL = 'oauth_app.AppUser'
+
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

@@ -7,7 +7,12 @@
             <a href="add_game">Create Game</a>
             <h2>Hello, {{user.username}}!</h2>
         {% else %}
-            <a href="{% provider_login_url 'google' %}?next=/">Google Login</a>
+            <a href="{% provider_login_url 'google' %}?next=/">Log in</a>
+        {% endif %}
+
+        {% if user.is_admin %}
+            <h3>ADMIN STATUS</h3>
+            <a href="{% url 'approval' %}">Approve Submissions</a>
         {% endif %}
     </body>
 </html>

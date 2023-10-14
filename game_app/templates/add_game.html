@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Location</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4E9uAdgpAZNzSTNIofmkZdKAAIE37X4&callback=initMap" async defer></script>
+    <script>
+        var map;
+        var marker;
+        function initMap() {
+            var initialLocation = {lat: 0, lng: 0};
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: initialLocation,
+                zoom: 4
+            });
+
+            marker = new google.maps.Marker({
+                position: initialLocation,
+                map: map,
+                draggable: true
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function(evt) {
+                document.getElementById('id_latitude').value = evt.latLng.lat().toFixed(6);
+                document.getElementById('id_longitude').value = evt.latLng.lng().toFixed(6);
+            });
+
+        }
+    </script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.name }}
+        <div id="map"></div>
+        {{ form.latitude }}
+        {{ form.longitude }}
+        <input type="submit" value="Create Game">
+    </form>
+</body>
+</html>

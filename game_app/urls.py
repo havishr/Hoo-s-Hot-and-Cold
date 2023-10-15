@@ -4,5 +4,6 @@ from game_app.views import add_game
 
 urlpatterns = [
     path('', add_game, name='add_game'),
-    path("approval", views.approval_view, name='approval')
+    path("approval", views.approval_view, name='approval'),
+    #path('add_game/', views.add_game, name='add_game'),
     ]

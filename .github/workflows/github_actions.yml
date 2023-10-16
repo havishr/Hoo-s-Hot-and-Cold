@@ -41,6 +41,7 @@ jobs:
 
     - name: Deploy to Heroku
       run: |
+        heroku --version
         heroku git:remote -a adv-software-dev-project
         git push heroku main
 

@@ -1,12 +1,26 @@
 {% load socialaccount %}
+{% load static %}
 
-<html>
-    <body>
-        <a href="{% url 'home' %}">Back to Home</a>
-        <h1>Submission Approval Site</h1>
+<!-- Form adapted from: Django tutorial -->
+<a href="{% url 'home' %}">Home</a>
+<div>
+{% if game_submissions %}
+    <ul>
+    {% for game in game_submissions %}
 
-        {% if user.is_admin %}
-            <h3>ADMIN STATUS</h3>
-        {% endif %}
-    </body>
-</html>
+        <p>Name: {{ game.name }}</p>
+        <!-- Using forms to call views from: ChatGPT -->
+        <form method="post" action="{% url 'approve_game' game.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Approve">
+        </form>
+        <form method="post" action="{% url 'deny_game' game.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Deny">
+        </form>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No games awaiting approval...</p>
+{% endif %}
+</div>

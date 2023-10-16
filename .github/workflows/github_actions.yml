@@ -27,8 +27,20 @@ jobs:
     - name: Run tests
       run: python manage.py test
 
+    - name: Set up Heroku CLI
+      run: |
+        curl https://cli-assets.heroku.com/install.sh | sh
+        heroku --version
+
+    - name: Log in to Heroku
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        echo -e "machine api.heroku.com\n  login $HEROKU_API_KEY" > ~/.netrc
+        heroku container:login
+
     - name: Deploy to Heroku
       run: |
-        heroku login -i
         heroku git:remote -a adv-software-dev-project
         git push heroku main
+

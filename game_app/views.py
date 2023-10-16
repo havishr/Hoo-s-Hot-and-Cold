@@ -1,6 +1,10 @@
+from django.urls import reverse
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from .forms import GameForm
+
+from .models import Game
+from django.views.generic import UpdateView, TemplateView, DetailView, ListView
 
 
 def add_game(request):
@@ -8,15 +12,40 @@ def add_game(request):
         form = GameForm(request.POST)
         if form.is_valid():
             form.save()
-            #return redirect('add_location')
+            # return redirect('add_location')
             return redirect('home')
     else:
         form = GameForm()
     return render(request, 'add_game.html', {'form': form})
 
 
-def approval_view(request):
+# Adapted from: Django practice
+class ApproveView(ListView):
+    template_name = "approval.html"
+    context_object_name = "game_submissions"
+
+    def get_queryset(self):
+        """
+        Return the games that have been submitted for approval.
+        """
+        return Game.objects.filter(is_approved=False)
+
+
+# Adapted from: Django practice
+def approve_game(request, pk):
+    # Check if the user is an admin before performing approval
     if request.user.is_authenticated and request.user.is_admin:
-        return render(request, "approval.html")
-    else:
-        return HttpResponseForbidden("Admin Permissions Required!")
+        game = Game.objects.get(pk=pk)
+        game.is_approved = True
+        game.save()
+    return redirect('approval')
+
+
+# Adapted from: Django practice
+def deny_game(request, pk):
+    # Check if the user is an admin before performing denial
+    if request.user.is_authenticated and request.user.is_admin:
+        game = Game.objects.get(pk=pk)
+        game.delete()
+
+    return redirect('approval')

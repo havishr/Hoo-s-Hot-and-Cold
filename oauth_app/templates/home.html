@@ -1,18 +1,126 @@
 {% load socialaccount %}
 
 <html>
-    <body>
-        {% if user.is_authenticated %}
-            <a href="logout">Logout</a>
-            <a href="add_game">Create Game</a>
-            <h2>Hello, {{user.username}}!</h2>
-        {% else %}
-            <a href="{% provider_login_url 'google' %}?next=/">Log in</a>
-        {% endif %}
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            /* Custom Styles */
+            body {
+                background-color: gray;
+                font-family: Arial, sans-serif;
+            }
+            .btn-custom {
+                margin: 5px;  /* Spacing between buttons */
+                width: 120px; /* Fixed width */
+                height: 50px; /* Fixed height */
+                border: solid 1px black; /* Black border */
+                border-radius: 0 !important; /* Make buttons square */
+            }
+            .btn-submit-game {
+                background-color: green !important;
+                color: white !important;
+            }
+            .btn-play-game {
+                background-color: orange !important;
+                color: white !important;
+            }
+            .dropdown-item-easy {
+                background-color: green !important;
+                color: white !important;
+            }
+            .dropdown-item-hard {
+                background-color: red !important;
+                color: white !important;
+            }
+            /* Centered text and buttons for login screen */
+            .centered-content {
+                position: absolute;
+                top: 200%;  
+                left: 50%;
+                text-align: center;
+            }
 
-        {% if user.is_admin %}
-            <h3>ADMIN STATUS</h3>
-            <a href="{% url 'approval' %}">Approve Submissions</a>
-        {% endif %}
+            /* Hot and Cold styles */
+            .hot-box {
+                background-color: red;
+                color: white;
+                padding: 15px;
+                display: inline-block;
+                font-size: 2em; 
+            }
+            .cold-box {
+                background-color: blue;
+                color: white;
+                padding: 15px;
+                display: inline-block;
+                font-size: 2em; 
+                
+            }
+            html, body, .container-fluid {
+            height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <!-- Display 'Hot and Cold' for the original login screen -->
+                    {% if not user.is_authenticated %}
+                        <div class="centered-content">
+                            <div>
+                                <span class="hot-box">Hot</span>
+                                <span> and </span>
+                                <span class="cold-box">Cold</span>
+                            </div>
+                            <!-- Login button for unauthenticated users -->
+                            <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-primary btn-custom mt-3">Log in</a>
+                        </div>
+                    {% else %}
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a href="logout" class="btn btn-primary btn-custom">Logout</a>
+                            <a href="add_game" class="btn btn-primary btn-submit-game btn-custom">Submit a Game</a>
+
+                            <!-- Dropdown for Play -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary btn-play-game btn-custom dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Play
+                                </button>
+                                <div class="dropdown-menu">
+                                    <!-- Add links to hard and easy game modes -->
+                                    <a class="dropdown-item dropdown-item-easy" href="#link_to_easy_game">Easy</a>
+                                    <a class="dropdown-item dropdown-item-hard" href="#link_to_hard_game">Hard</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {% if user.is_authenticated %}
+                        <h2>Hello, {{user.username}}!</h2>
+                    {% endif %}
+
+                    {% if user.is_admin %}
+                        <h3>ADMIN STATUS</h3>
+                        <a href="{% url 'approval' %}" class="btn btn-secondary btn-custom">Approve Submissions</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if user.is_authenticated %}
+                <div class="centered-text">
+                    Hit Play to get into a game
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Include Bootstrap JavaScript at the end of your document -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>

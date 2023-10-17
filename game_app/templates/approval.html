@@ -1,6 +1,16 @@
 {% load socialaccount %}
 {% load static %}
 
+
+
+
+
+
+
+
+
+
+
 <!-- Form adapted from: Django tutorial -->
 <a href="{% url 'home' %}">Home</a>
 <div>
@@ -9,6 +19,40 @@
     {% for game in game_submissions %}
 
         <p>Name: {{ game.name }}</p>
+
+
+
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4E9uAdgpAZNzSTNIofmkZdKAAIE37X4&callback=initMap" async defer></script>
+        <script>
+            var map;
+            var marker;
+            function initMap() {
+                var initialLocation = {lat: {{ game.latitude }}, lng: {{ game.longitude}}};
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: initialLocation,
+                    zoom: 17
+                });
+
+                marker = new google.maps.Marker({
+                    position: initialLocation,
+                    map: map,
+                    draggable: false
+                });
+
+            }
+        </script>
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style>
+        <div id="map"></div>
+
+
+
+
         <!-- Using forms to call views from: ChatGPT -->
         <form method="post" action="{% url 'approve_game' game.id %}">
             {% csrf_token %}

@@ -28,7 +28,7 @@ class ApproveView(ListView):
         """
         Return the games that have been submitted for approval.
         """
-        return Game.objects.filter(is_approved=False)
+        return Game.objects.filter(is_approved=False)[:1]
 
 
 # Adapted from: Django practice

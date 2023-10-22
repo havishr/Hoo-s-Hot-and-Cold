@@ -16,6 +16,13 @@ def add_game(request):
             return redirect('home')
     else:
         form = GameForm()
+
+    context = {
+        'form': form,
+        'default_lat': 38.053,  # UVA
+        'default_lng': -78.5035,
+    }
+
     return render(request, 'add_game.html', {'form': form})
 
 

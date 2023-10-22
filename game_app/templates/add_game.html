@@ -7,10 +7,11 @@
         var map;
         var marker;
         function initMap() {
-            var initialLocation = {lat: 0, lng: 0};
+            var initialLocation = {lat: 38.0353, lng: -78.5035};
+
             map = new google.maps.Map(document.getElementById('map'), {
                 center: initialLocation,
-                zoom: 4
+                zoom: 15
             });
 
             marker = new google.maps.Marker({

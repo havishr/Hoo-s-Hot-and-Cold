@@ -22,8 +22,8 @@
             h1 {
                 font-size: 3.5em;
                 text-shadow: 2px 2px 4px #aaa, -2px -2px 4px #aaa, 2px -2px 4px #aaa, -2px 2px 4px #aaa; /* Giving it a cloudy effect */
-                margin-bottom: 20px; 
-                color: #ffffff; 
+                margin-bottom: 20px;
+                color: #ffffff;
                 background-color: rgba(0,0,0,0.3);
                 padding: 15px;
                 border-radius: 15px;
@@ -45,39 +45,19 @@
                 background-color: #0056b3; /* Darker shade on hover */
                 box-shadow: 0 0 20px rgba(0,0,0,0.3); /* Enhanced shadow on hover */
             }
-            
+
         </style>
     </head>
     <body>
         <div class="text-center">
             <h1>Hoo's Hot and Cold?</h1>
 
-                <h2>Hello, {{user.username}}!</h2>
-                <div class="btn-group mt-3" role="group" aria-label="Basic example">
-                    <!-- Logout form -->
-                    <form action="{% url 'account_logout' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary btn-custom">Logout</button>
-                    </form>
-                    <a href="add_game" class="btn btn-success btn-custom">Submit a Game</a>
-                    <!-- Dropdown for Play -->
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-warning btn-custom dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Play
-                        </button>
-                        <div class="dropdown-menu">
-                            <!-- Add links to hard and easy game modes -->
-                            <a class="dropdown-item" href="#link_to_easy_game">Easy</a>
-                            <a class="dropdown-item" href="#link_to_hard_game">Hard</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="centered-text mt-4">
-                    Hit Play to get into a game
-                </div>
-                {% if user.is_admin %}
-                        <a href="{% url 'approval' %}" class="btn btn-secondary btn-custom">Approve Submissions</a>
-                {% endif %}
+                <!-- Google OAuth direct login form -->
+                <!-- From: TA suggestion -->
+                <form action="{% provider_login_url 'google' method='login' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-login">Login with Google</button>
+                </form>
         </div>
 
         <!-- Include Bootstrap JavaScript at the end of your document -->

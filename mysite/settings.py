@@ -120,10 +120,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #         }
 #     }
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
-
 ON_HEROKU = os.environ.get('ON_HEROKU')
 # ON_HEROKU = True
 
@@ -133,8 +129,12 @@ if ON_HEROKU:
     }
     # print(os.environ.get('DATABASE_URL'))
 else:
-    DATABASE_URL = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-    DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

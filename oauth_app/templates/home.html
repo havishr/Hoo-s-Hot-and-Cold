@@ -1,4 +1,5 @@
 {% load socialaccount %}
+{% load static %}
 
 <html>
     <head>
@@ -6,142 +7,84 @@
         <style>
             /* Custom Styles */
             body {
-                background-color: gray;
+                background-image: url("{% static 'images/test1.png' %}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
                 font-family: Arial, sans-serif;
-            }
-            .btn-custom {
-                margin: 5px;  /* Spacing between buttons */
-                width: 120px; /* Fixed width */
-                height: 50px; /* Fixed height */
-                border: solid 1px black; /* Black border */
-                border-radius: 0 !important; /* Make buttons square */
-            }
-            .btn-submit-game {
-                background-color: green !important;
-                color: white !important;
-            }
-            .btn-play-game {
-                background-color: orange !important;
-                color: white !important;
-            }
-            .dropdown-item-easy {
-                background-color: green !important;
-                color: white !important;
-            }
-            .dropdown-item-hard {
-                background-color: red !important;
-                color: white !important;
-            }
-            /* Centered text and buttons for login screen */
-            .centered-content {
-                position: absolute;
-                top: 200%;  
-                left: 50%;
-                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
             }
 
-            /* Hot and Cold styles */
-            .hot-box {
-                background-color: red;
-                color: white;
+            h1 {
+                font-size: 3.5em;
+                text-shadow: 2px 2px 4px #aaa, -2px -2px 4px #aaa, 2px -2px 4px #aaa, -2px 2px 4px #aaa; /* Giving it a cloudy effect */
+                margin-bottom: 20px; 
+                color: #ffffff; 
+                background-color: rgba(0,0,0,0.3);
                 padding: 15px;
-                display: inline-block;
-                font-size: 2em; 
+                border-radius: 15px;
             }
-            .cold-box {
-                background-color: blue;
-                color: white;
-                padding: 15px;
-                display: inline-block;
-                font-size: 2em; 
-                
+
+            .btn-login {
+                background-color: #007bff;
+                border: none;
+                padding: 15px 80px; /* Making the button wide */
+                border-radius: 50px; /* Circular effect */
+                font-size: 1.2em;
+                font-weight: 600;
+                box-shadow: 0 0 15px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+                color: #ffffff; /* White text */
+                transition: all 0.3s ease; /* Smooth transition for hover effect */
             }
-            html, body, .container-fluid {
-            height: 100%;
+
+            .btn-login:hover {
+                background-color: #0056b3; /* Darker shade on hover */
+                box-shadow: 0 0 20px rgba(0,0,0,0.3); /* Enhanced shadow on hover */
             }
+            
         </style>
     </head>
     <body>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
+        <div class="text-center">
+            <h1>Hoo's Hot and Cold?</h1>
 
-                    <!-- Display 'Hot and Cold' for the original login screen -->
-                    {% if not user.is_authenticated %}
-                        <div class="centered-content">
-                            <div>
-                                <span class="hot-box">Hot</span>
-                                <span> and </span>
-                                <span class="cold-box">Cold</span>
-                            </div>
-                            <!-- Login button for unauthenticated users -->
-                            <!-- From: TA suggestion -->
-                            <form action="{% provider_login_url 'google' method='login' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="nav-link">Login with Google</button>
-                            </form>
+            {% if not user.is_authenticated %}
+                <!-- Google OAuth direct login form -->
+                <!-- From: TA suggestion -->
+                <form action="{% provider_login_url 'google' method='login' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-login">Login with Google</button>
+                </form>
+            {% else %}
+                <h2>Hello, {{user.username}}!</h2>
+                <div class="btn-group mt-3" role="group" aria-label="Basic example">
+                    <!-- Logout form -->
+                    <form action="{% url 'account_logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-custom">Logout</button>
+                    </form>
+                    <a href="add_game" class="btn btn-success btn-custom">Submit a Game</a>
+                    <!-- Dropdown for Play -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning btn-custom dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Play
+                        </button>
+                        <div class="dropdown-menu">
+                            <!-- Add links to hard and easy game modes -->
+                            <a class="dropdown-item" href="#link_to_easy_game">Easy</a>
+                            <a class="dropdown-item" href="#link_to_hard_game">Hard</a>
                         </div>
-                    {% else %}
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="logout" class="btn btn-primary btn-custom">Logout</a>
-                            <a href="add_game" class="btn btn-primary btn-submit-game btn-custom">Submit a Game</a>
-
-                            <!-- Dropdown for Play -->
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary btn-play-game btn-custom dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Play
-                                </button>
-                                <div class="dropdown-menu">
-                                    <!-- Add links to hard and easy game modes -->
-                                    <a class="dropdown-item dropdown-item-easy" href="#link_to_easy_game">Easy</a>
-                                    <a class="dropdown-item dropdown-item-hard" href="#link_to_hard_game">Hard</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
+                    </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    {% if user.is_authenticated %}
-                        <h2>Hello, {{user.username}}!</h2>
-                    {% endif %}
-
-                    {% if user.is_admin %}
-                        <h3>ADMIN STATUS</h3>
-                        <a href="{% url 'approval' %}" class="btn btn-secondary btn-custom">Approve Submissions</a>
-                    {% endif %}
-                </div>
-            </div>
-
-            {% if user.is_authenticated %}
-                <div class="centered-text">
+                <div class="centered-text mt-4">
                     Hit Play to get into a game
                 </div>
             {% endif %}
         </div>
-
-
-        <button onclick="getLocation()">Get Location</button>
-        <p id="demo"></p>
-        <script>
-           const x = document.getElementById("demo");
-
-           function getLocation() {
-               if (navigator.geolocation) {
-                   navigator.geolocation.getCurrentPosition(showPosition);
-               } else {
-                   x.innerHTML = "Geolocation is not supported by this browser.";
-               }
-           }
-
-           function showPosition(position) {
-               x.innerHTML = "Latitude: " + position.coords.latitude +
-               "<br>Longitude: " + position.coords.longitude;
-           }
-        </script>
-
 
         <!-- Include Bootstrap JavaScript at the end of your document -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

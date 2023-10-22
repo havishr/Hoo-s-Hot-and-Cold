@@ -3,6 +3,7 @@ from django.urls import reverse
 from oauth_app.models import AppUser
 
 from game_app.models import Game
+from game_app.forms import GameForm
 
 
 # Create your tests here.
@@ -97,9 +98,53 @@ class ApproveViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertQuerySetEqual(response.context["game_submissions"], [game])
 
-# class ApproveGameTest(TestCase):
-#     def test_approve_game(self):
-#         """
-#         Tests that a game's is_approved field is set to True when approved
-#         """
-#         game = create_game(name="Rotunda", approved=False)
+#From ChatGPT and Online Tutorial
+class GameFormTests(TestCase):
+    def test_valid_form(self):
+        """
+        Test that the GameForm is valid with correct data.
+        """
+        data = {
+            'name': 'New Game',
+            'latitude': 38.0353,
+            'longitude': -78.5035
+        }
+        form = GameForm(data)
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_form(self):
+        """
+        Test that the GameForm is invalid with incorrect data.
+        """
+        data = {
+            'name': '',
+            'latitude': 'invalid_latitude',
+            'longitude': 'invalid_longitude'
+        }
+        form = GameForm(data)
+        self.assertFalse(form.is_valid())
+
+class TemplateTests(TestCase):
+    def setUp(self):
+        self.admin_user = AppUser.objects.create_user(username='admin', password='admin', is_admin=True)
+        self.client.force_login(self.admin_user)
+        self.game = create_game(name="Test Game", approved=False)
+
+    def test_approval_template_display(self):
+        """
+        Test that the approval template displays games awaiting approval.
+        """
+        response = self.client.get(reverse("approval"))
+        self.assertContains(response, "Test Game")
+        self.assertContains(response, "Approve")
+        self.assertContains(response, "Deny")
+
+    def test_addgame_template_display(self):
+        """
+        Test that the addgame template displays the form correctly.
+        """
+        response = self.client.get(reverse("add_game"))
+        self.assertContains(response, "Create Game")
+        self.assertContains(response, "name")
+        self.assertContains(response, "latitude")
+        self.assertContains(response, "longitude")

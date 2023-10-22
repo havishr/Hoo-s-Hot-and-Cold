@@ -14,6 +14,7 @@ def create_game(name, approved, latitude=0, longitude=0):
                                latitude=latitude, longitude=longitude
                                )
 
+
 class ApproveViewTests(TestCase):
     # From: Django tutorial
     def test_no_games_submitted(self):
@@ -47,3 +48,12 @@ class ApproveViewTests(TestCase):
         response = self.client.get(reverse("approval"))
         self.assertEqual(response.status_code, 200)
         self.assertQuerySetEqual(response.context["game_submissions"], [game])
+
+
+class ApproveGameTest(TestCase):
+    def test_approve_game(self):
+        """
+        Tests that a game's is_approved field is set to True when approved
+        """
+        game = create_game(name="Rotunda", approved=False)
+

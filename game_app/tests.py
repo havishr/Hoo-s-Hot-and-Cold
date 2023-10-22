@@ -25,6 +25,7 @@ class ApproveViewTests(TestCase):
         self.assertContains(response, "No games awaiting approval...")
         self.assertQuerySetEqual(response.context["game_submissions"], [])
 
+    # From: Django tutorial
     def test_all_games_approved(self):
         """
         Tests that no games are displayed if all games have been approved.
@@ -36,6 +37,7 @@ class ApproveViewTests(TestCase):
         self.assertContains(response, "No games awaiting approval...")
         self.assertQuerySetEqual(response.context["game_submissions"], [])
 
+    # From: Django tutorial
     def test_game_not_approved(self):
         """
         Tests that games are displayed if they have not been approved.

@@ -75,7 +75,11 @@
                                 <span class="cold-box">Cold</span>
                             </div>
                             <!-- Login button for unauthenticated users -->
-                            <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-primary btn-custom mt-3">Log in</a>
+                            <!-- From: TA suggestion -->
+                            <form action="{% provider_login_url 'google' method='login' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link">Login with Google</button>
+                            </form>
                         </div>
                     {% else %}
                         <div class="btn-group" role="group" aria-label="Basic example">

@@ -30,6 +30,12 @@ class ApproveView(ListView):
         """
         return Game.objects.filter(is_approved=False)[:1]
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_admin:
+            return HttpResponseForbidden("Must be logged in with admin permissions.")
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 # Adapted from: Django practice
 def approve_game(request, pk):

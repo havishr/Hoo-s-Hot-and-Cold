@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
 def home(request):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated:
         return render(request, "home.html")
     return render(request, "login.html")
 

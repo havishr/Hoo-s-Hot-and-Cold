@@ -118,6 +118,27 @@
             {% endif %}
         </div>
 
+
+        <button onclick="getLocation()">Get Location</button>
+        <p id="demo"></p>
+        <script>
+           const x = document.getElementById("demo");
+
+           function getLocation() {
+               if (navigator.geolocation) {
+                   navigator.geolocation.getCurrentPosition(showPosition);
+               } else {
+                   x.innerHTML = "Geolocation is not supported by this browser.";
+               }
+           }
+
+           function showPosition(position) {
+               x.innerHTML = "Latitude: " + position.coords.latitude +
+               "<br>Longitude: " + position.coords.longitude;
+           }
+        </script>
+
+
         <!-- Include Bootstrap JavaScript at the end of your document -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

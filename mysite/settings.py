@@ -62,6 +62,8 @@ INSTALLED_APPS = [
 
     # game_app -> separate creating and approving games
     'game_app',
+    # stats -> user leaderboard and personal stats
+    'stats',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,22 @@
+<h1>Leaderboard</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Username</th>
+            <th>Score</th>
+            <th>Games Played</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stats in top_users %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ stats.user.username }}</td>
+            <td>{{ stats.score }}</td>
+            <td>{{ stats.locations_proposed }}</td>
+            <td>{{ stats.games_played }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

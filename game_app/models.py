@@ -1,8 +1,9 @@
 from django.db import models
+from oauth_app.models import AppUser
+from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
-
 class Game(models.Model):
     # Game name
     name = models.CharField(max_length=128)
@@ -17,3 +18,32 @@ class Game(models.Model):
 
     def __str__(self):
         return f"({self.name}, approved: {self.is_approved}, {self.latitude}, {self.longitude})"
+
+
+class ActiveGame(models.Model):
+    # From: https://docs.djangoproject.com/en/4.2/ref/models/fields/
+    class Hint(models.TextChoices):
+        HOT = "H", _("HOT")
+        COLD = "C", _("COLD")
+        NONE = "N", _("REQUEST HINT")
+
+    # The user playing the game
+    user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+
+    # The game being played
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+
+    # Track number of hints requested and what is the current hint
+    curr_hint = models.CharField(
+        max_length=1,
+        choices=Hint.choices,
+        default=Hint.NONE
+    )
+    hint_counter = models.IntegerField(default=0)
+
+    # Fields to track coordinates of last guess
+    last_latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    last_longitude = models.DecimalField(max_digits=9, decimal_places=6)
+
+    # Has this game been completed
+    is_finished = models.BooleanField(default=False)

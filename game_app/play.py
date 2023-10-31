@@ -1,38 +1,18 @@
-import json
-
+from django.contrib.gis.geos import GEOSGeometry
 from models import *
 
-API_KEY = "AIzaSyDY4E9uAdgpAZNzSTNIofmkZdKAAIE37X4"
 
+# From: https://gis.stackexchange.com/questions/21859/getting-distance-between-2-points-using-geodjango
+# Author: ChristopherDBerry
+def geo_distance(lat_0, lon_0, lat_1, lon_1):
+    point_0 = GEOSGeometry('SRID=4326;POINT({lat} {lon})'.format(lat=lat_0, lon=lon_0))
+    point_1 = GEOSGeometry('SRID=4326;POINT({lat} {lon})'.format(lat=lat_1, lon=lon_1))
+    return point_0.distance(point_1) * 100
 
-# Create a Google Maps distance query request
-def distance_request(origin_lat, origin_lon, dest_lat, dest_lon):
-    return """
-    https://maps.googleapis.com/maps/api/distancematrix/json
-        ?destinations={dest_lat}%2C{dest_lon}
-        &origins={origin_lat}%2C{origin_lon}
-        &mode=walking
-        &key={api_key}
-    """.format(dest_lat=dest_lat, dest_lon=dest_lon,
-               origin_lat=origin_lat, origin_lon=origin_lon,
-               api_key=API_KEY)
+def get_hint(request, guess_lat, guess_lon):
+    active_game = ActiveGame.objects.select_related().filter(user=request.user)
+    game = active_game.game
 
+    prev_dist = geo_distance(active_game.last_latitude, active_game.last_longitude, game.latitude, game.longitude)
+    guess_dist = geo_distance(guess_lat, guess_lon, game.latitude, game.longitude)
 
-# Get distance value form JSON request
-def distance_from_response(response):
-    data = json.loads(response)
-    value = data['rows'][0]['elements'][0]['distance']['value']
-    return value
-
-
-# Check if player has moved towards or away from the destination
-def hint(prev_lat, prev_lon, curr_lat, curr_lon, game):
-    prev_dist = distance_from_response(
-        distance_request(prev_lat, prev_lon, game.latitude, game.longitude)
-    )
-    new_dist = distance_from_response(
-        distance_request(curr_lat, curr_lon, game.latitude, game.longitude)
-    )
-    if new_dist < prev_dist:
-        return "HOT"
-    return "COLD"

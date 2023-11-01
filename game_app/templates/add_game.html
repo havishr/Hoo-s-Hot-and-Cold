@@ -35,6 +35,14 @@
         .black-outline {
             border: 1px solid black !important;
         }
+        .navy-blue-btn {
+            background-color: #000080;
+            color: white;
+        }
+        .uva-orange-btn {
+            background-color: #F84C1E;
+            color: white;
+        }
     </style>
 </head>
 
@@ -107,11 +115,11 @@
                 <!-- Return to Login Button -->
                 <div class="row button-margin">
                     <div class="col-6">
-                        <a href="{% url 'login_game' %}" class="btn btn-primary w-100 black-outline">Return to Login</a>
+                        <a href="{% url 'login_game' %}" class="btn btn-primary w-100 black-outline navy-blue-btn">Return to Login</a>
                     </div>
                     <!-- Go to Home Page Button -->
                     <div class="col-6">
-                        <a href="{% url 'home' %}" class="btn btn-info w-100 black-outline">Home Page</a>
+                        <a href="{% url 'home' %}" class="btn btn-info w-100 black-outline uva-orange-btn">Home Page</a>
             </div>
 
         </form>

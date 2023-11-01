@@ -1,7 +1,49 @@
+{% load widget_tweaks %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Location</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Optional: Include Bootstrap JS with Popper.js for components that need them -->
+    
+    <style>
+        /* Adjust the map size as needed */
+        #map {
+    
+            height: 80vh;
+            width: 100%;
+        }
+        body {
+                background-image: url("https://cdn.rbiva.com/wp-content/uploads/2020/06/RBI_Featured-Image_ConstuctionProject_UVARotunda.jpg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                font-family: Arial, sans-serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+            }
+        /* Custom styling can be added here if needed */
+    </style>
+    <style>
+        /* Add custom styles here */
+        .black-outline {
+            border: 1px solid black !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.7.12/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4E9uAdgpAZNzSTNIofmkZdKAAIE37X4&callback=initMap" async defer></script>
     <script>
         var map;
@@ -27,21 +69,54 @@
 
         }
     </script>
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.name }}
-        <div id="map"></div>
-        {{ form.latitude }}
-        {{ form.longitude }}
-        <input type="submit" value="Create Game">
-    </form>
+    <div class="container my-4">
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Google Map with black outline -->
+            <div id="map" class="mb-3 black-outline"></div>
+            
+            <!-- Text Box for the Name of the Location with black outline -->
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Apply black outline to the text input -->
+                        <input type="text" name="{{ form.name.html_name }}" id="id_{{ form.name.html_name }}" 
+                        class="form-control black-outline" placeholder="Enter Name of Location Here" 
+                        value="{{ form.name.value|default_if_none:'' }}" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Latitude and Longitude Fields -->
+            <div class="d-none">
+                {{ form.latitude }}
+                {{ form.longitude }}
+            </div>
+            
+            <!-- Submit Button with black outline -->
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success w-100 black-outline">Create Game</button>
+                    </div>
+                </div>
+                <div style="height: 10px;">
+                    
+                </div>
+                <!-- Return to Login Button -->
+                <div class="row button-margin">
+                    <div class="col-6">
+                        <a href="{% url 'login_game' %}" class="btn btn-primary w-100 black-outline">Return to Login</a>
+                    </div>
+                    <!-- Go to Home Page Button -->
+                    <div class="col-6">
+                        <a href="{% url 'home' %}" class="btn btn-info w-100 black-outline">Home Page</a>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Your scripts here -->
 </body>
 </html>

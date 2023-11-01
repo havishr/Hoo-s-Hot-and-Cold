@@ -15,3 +15,6 @@ def home(request):
 def logout_view(request):
     logout(request)
     return redirect("/")
+
+def login_game(request):
+    return render(request, "login.html")

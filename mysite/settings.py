@@ -39,7 +39,7 @@ ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com', 'localho
 
 # Application definition
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
-SITE_ID = 5
+SITE_ID = 6
 
 INSTALLED_APPS = [
     # From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'widget_tweaks',
     'django.contrib.staticfiles',
 
     # From https://www.youtube.com/watch?v=yO6PP0vEOMc

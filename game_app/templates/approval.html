@@ -1,27 +1,25 @@
 {% load socialaccount %}
 {% load static %}
-
-
-
-
-
-
-
-
-
-
+<!-- Background -->
+<style>
+    body {
+      background-image: url("https://cdn.rbiva.com/wp-content/uploads/2020/06/RBI_Featured-Image_ConstuctionProject_UVARotunda.jpg"); 
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center center;
+    }
+    </style>
 
 <!-- Form adapted from: Django tutorial -->
-<a href="{% url 'home' %}">Home</a>
+  <!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <div>
 {% if game_submissions %}
     <ul>
     {% for game in game_submissions %}
 
-        <p>Name: {{ game.name }}</p>
-
-
-
+    <p class="game-name-large">Name: {{ game.name }}</p>
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4E9uAdgpAZNzSTNIofmkZdKAAIE37X4&callback=initMap" async defer></script>
         <script>
@@ -43,28 +41,88 @@
             }
         </script>
         <style>
+            /* Map styling */
             #map {
-                height: 400px;
-                width: 100%;
+                height: 600px;
+                width: 70%; 
+                margin: 0 auto; /* This will center the map in its parent container */
+            }
+            
+            /* Black outline  */
+            .black-outline {
+                border: 1px solid black !important;
+            }
+            
+            /* Style for the game name */
+            .game-name-large {
+                font-size: 24px;
+                font-weight: bold;
+                text-align: center; 
+            }
+
+            
+            /* Buttons container styling */
+            .buttons-container {
+                display: flex;
+                justify-content: space-between; 
+                width: 80%; 
+                margin: 20px auto; 
+            }
+
+            
+            .map-button {
+                flex-basis: 49%; /* Assigns a base width of just under half of the container's width to each button */
+            }
+            .navy-blue-btn {
+            background-color: #000080;
+            color: white;
+            }
+            .uva-orange-btn {
+            background-color: #F84C1E;
+            color: white;
+            }
+            .approve-button {
+            background-color: #28a745; 
+            color: white;
+            }
+
+            .deny-button {
+            background-color: #dc3545; 
+            color: white;
             }
         </style>
-        <div id="map"></div>
 
-
-
-
+        </style>
+        <div id="map" class="mb-3 black-outline"></div>
         <!-- Using forms to call views from: ChatGPT -->
-        <form method="post" action="{% url 'approve_game' game.id %}">
+        <div class="buttons-container">
+            <form method="post" action="{% url 'approve_game' game.id %}" class="map-button">
             {% csrf_token %}
-            <input type="submit" value="Approve">
-        </form>
-        <form method="post" action="{% url 'deny_game' game.id %}">
-            {% csrf_token %}
-            <input type="submit" value="Deny">
-        </form>
+            <button type="submit" class="btn w-100 black-outline approve-button">Approve</button>
+            </form>
+            <form method="post" action="{% url 'deny_game' game.id %}" class="map-button">
+        {% csrf_token %}
+        <button type="submit" class="btn w-100 black-outline deny-button">Deny</button>
+            </form>
+        </div>
+
+    <!-- Return to Login and Home Page Buttons -->
+    <div class="buttons-container">
+     <div class="map-button">
+        <a href="{% url 'login_game' %}" class="btn w-100 black-outline navy-blue-btn">Return to Login</a>
+        </div>
+    <div class="map-button">
+        <a href="{% url 'home' %}" class="btn w-100 black-outline uva-orange-btn">Home Page</a>
+    </div>
+    </div>
+
     {% endfor %}
     </ul>
 {% else %}
     <p>No games awaiting approval...</p>
 {% endif %}
 </div>
+<!-- Include Bootstrap JavaScript at the end of your document -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

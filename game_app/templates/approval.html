@@ -14,7 +14,7 @@
 <!-- Form adapted from: Django tutorial -->
   <!-- Include Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<div>
+<div class="container">
 {% if game_submissions %}
     <ul>
     {% for game in game_submissions %}
@@ -106,23 +106,34 @@
             </form>
         </div>
 
-    <!-- Return to Login and Home Page Buttons -->
-    <div class="buttons-container">
-     <div class="map-button">
-        <a href="{% url 'login_game' %}" class="btn w-100 black-outline navy-blue-btn">Return to Login</a>
-        </div>
-    <div class="map-button">
-        <a href="{% url 'home' %}" class="btn w-100 black-outline uva-orange-btn">Home Page</a>
-    </div>
-    </div>
+    
+ 
 
     {% endfor %}
     </ul>
 {% else %}
     <p>No games awaiting approval...</p>
+    <div class="buttons-container mb-3">
+        <div class="map-button">
+            <a href="{% url 'login_game' %}" class="btn w-100 black-outline navy-blue-btn">Return to Login</a>
+        </div>
+        <div class="map-button">
+            <a href="{% url 'home' %}" class="btn w-100 black-outline uva-orange-btn">Home Page</a>
+        </div>
+    </div>
 {% endif %}
+<!-- Return to Login and Home Page Buttons -->
+<div class="buttons-container fixed-bottom mb-3">
+    <div class="map-button">
+        <a href="{% url 'login_game' %}" class="btn w-100 black-outline navy-blue-btn">Return to Login</a>
+    </div>
+    <div class="map-button">
+        <a href="{% url 'home' %}" class="btn w-100 black-outline uva-orange-btn">Home Page</a>
+    </div>
 </div>
-<!-- Include Bootstrap JavaScript at the end of your document -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
+
+    <!-- Include Bootstrap JavaScript at the end of your document -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

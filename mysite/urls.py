@@ -24,6 +24,7 @@ urlpatterns = [
 
     #From https://www.youtube.com/watch?v=yO6PP0vEOMc
     path("accounts/", include("allauth.urls")),
+    path('stats/', include('stats.urls')),
     path("", include("oauth_app.urls")),
     path("add_game/", include("game_app.urls"))
 ]

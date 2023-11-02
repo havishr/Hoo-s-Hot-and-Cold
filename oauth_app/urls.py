@@ -9,5 +9,6 @@ urlpatterns = [
     path("", views.home, name='home'),
     path("logout", views.logout_view),
     path('game/', include('game_app.urls')),
+    path('login_game', views.login_game, name ='login_game')
 
 ]

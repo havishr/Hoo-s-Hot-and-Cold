@@ -3,7 +3,7 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from .forms import GameForm
 
-from .models import Game
+from .models import Game, ActiveGame
 from django.views.generic import UpdateView, TemplateView, DetailView, ListView
 
 
@@ -62,3 +62,13 @@ def deny_game(request, pk):
         game.delete()
 
     return redirect('approval')
+
+
+def static_play(TemplateView):
+    active_game = ActiveGame.objects.select_related().filter(user=request.user)
+
+    return render(request, 'static_play.html')
+
+
+def get_hint(request):
+    redirect('static_play')

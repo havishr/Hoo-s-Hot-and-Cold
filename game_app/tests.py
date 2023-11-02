@@ -5,6 +5,9 @@ from oauth_app.models import AppUser
 from game_app.models import Game
 from game_app.forms import GameForm
 
+from game_app.play import *
+import unittest
+
 
 # Create your tests here.
 
@@ -16,6 +19,13 @@ def create_game(name, approved, latitude=0, longitude=0):
                                latitude=latitude, longitude=longitude
                                )
 
+
+def create_user(username='reg user', password='regpass123', is_admin=False):
+    return AppUser.objects.create_user(
+            username=username,
+            password=password,
+            is_admin=is_admin,
+        )
 
 class ApproveViewTests(TestCase):
     # Sets up the two user types for testing
@@ -98,7 +108,8 @@ class ApproveViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertQuerySetEqual(response.context["game_submissions"], [game])
 
-#From ChatGPT and Online Tutorial
+
+# From ChatGPT and Online Tutorial
 class GameFormTests(TestCase):
     def test_valid_form(self):
         """
@@ -124,6 +135,7 @@ class GameFormTests(TestCase):
         form = GameForm(data)
         self.assertFalse(form.is_valid())
 
+
 class TemplateTests(TestCase):
     def setUp(self):
         self.admin_user = AppUser.objects.create_user(username='admin', password='admin', is_admin=True)
@@ -148,3 +160,66 @@ class TemplateTests(TestCase):
         self.assertContains(response, "name")
         self.assertContains(response, "latitude")
         self.assertContains(response, "longitude")
+
+
+class DistanceTest(TestCase):
+    # Testing the distance function
+    def test_same_location(self):
+        self.assertEqual(geo_distance(38.029305, -78.476677, 38.029305, -78.476677), 0)
+
+    def test_diff_location(self):
+        self.assertTrue(geo_distance(40.7128, -74.0060, 40.7128, -74.0160) - 844.993 < 0.001)
+
+
+class HintTest(TestCase):
+    # Testing the hint function
+    """
+    When same location used, check:
+    1. is_finished set to True
+    2. hint_counter incremented
+    """
+
+    def test_same_location(self):
+        pass
+
+    """
+    When a location within the acceptance range is used, check:
+    1. is_finished set to True
+    2. hint_counter incremented
+    """
+
+    def test_within_acceptance_range(self):
+        pass
+
+    """
+    When a location outside the acceptance range is used, check:
+    1. is_finished is not set to True
+    2. hint_counter incremented
+    """
+
+    def test_outside_acceptance_range(self):
+        pass
+
+    """
+    When a location outside the acceptance range is used but it is closer than the last location, check:
+    1. is_finished is not set to True
+    2. hint_counter incremented
+    3. curr_hint is set to "hot"
+    4. last_latitude is set to guess_lat
+    5. last_longitude is set to guess_lon
+    """
+
+    def hint_returns_hot(self):
+        pass
+
+    """
+    When a location outside the acceptance range is used but it is farther than the last location, check:
+    1. is_finished is not set to True
+    2. hint_counter incremented
+    3. curr_hint is set to "cold"
+    4. last_latitude is set to guess_lat
+    5. last_longitude is set to guess_lon
+    """
+
+    def hint_returns_cold(self):
+        pass

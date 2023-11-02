@@ -39,7 +39,7 @@ ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com', 'localho
 
 # Application definition
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
-SITE_ID = 6
+SITE_ID = 5
 ON_HEROKU = os.environ.get('ON_HEROKU')
 if ON_HEROKU:
     SITE_ID = 5

@@ -178,7 +178,6 @@ class HintTest(TestCase):
     1. is_finished set to True
     2. hint_counter incremented
     """
-
     def test_same_location(self):
         pass
 
@@ -187,7 +186,6 @@ class HintTest(TestCase):
     1. is_finished set to True
     2. hint_counter incremented
     """
-
     def test_within_acceptance_range(self):
         pass
 
@@ -196,7 +194,6 @@ class HintTest(TestCase):
     1. is_finished is not set to True
     2. hint_counter incremented
     """
-
     def test_outside_acceptance_range(self):
         pass
 
@@ -208,7 +205,6 @@ class HintTest(TestCase):
     4. last_latitude is set to guess_lat
     5. last_longitude is set to guess_lon
     """
-
     def hint_returns_hot(self):
         pass
 
@@ -220,6 +216,5 @@ class HintTest(TestCase):
     4. last_latitude is set to guess_lat
     5. last_longitude is set to guess_lon
     """
-
     def hint_returns_cold(self):
         pass

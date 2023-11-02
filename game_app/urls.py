@@ -9,4 +9,7 @@ urlpatterns = [
     # URLS for approving and denying games, adapted from Django tutorial
     path('approve/<int:pk>/', views.approve_game, name='approve_game'),
     path('deny/<int:pk>/', views.deny_game, name='deny_game'),
+
+    # Game play urls
+    path('static/play', views.static_play, name='static_play')
     ]

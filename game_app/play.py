@@ -32,4 +32,3 @@ def get_hint(request, guess_lat, guess_lon):
 
     if guess_dist < DESTINATION_RADIUS:
         active_game.is_finished = True
-

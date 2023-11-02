@@ -66,21 +66,45 @@ def deny_game(request, pk):
     return redirect('approval')
 
 
-class StaticPlay(TemplateView):
-    template_name = "static_play.html"
+def static_play(request):
+    # Must be logged in to play the game
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden("Must be logged in to play!")
 
-    # active_game = ActiveGame.objects.select_related().filter(user=request.user)
+    try:
+        active_game = ActiveGame.objects.get(user=request.user)
+
+        context0 = {
+            'hint': active_game.get_curr_hint_display(),
+            'lat': active_game.last_latitude,
+            'lon': active_game.last_longitude,
+        }
+        context1 = {
+            'name': active_game.game.name,
+            'hint_count': active_game.hint_counter,
+        }
+        if active_game.is_finished:
+            return render(request, 'completed_game.html', context1)
+        return render(request, 'static_play.html', context0)
+    except ActiveGame.DoesNotExist:
+        return render(request, 'static_no_game.html')
+
+    # Should be unreachable
+    return HttpResponseForbidden("If you're seeing this, something went really wrong...")
 
 
 # From: ChatGPT
 # Used: How to set up a function that handles AJAX requests
 def update_hint(request):
     if request.method == 'GET':
+
         # This part was not from ChatGPT
         latitude = request.GET.get('lat', None)
         longitude = request.GET.get('lng', None)
-        print("(", latitude, ",", longitude, ")")
-        get_hint(request, latitude, longitude)
 
-        return JsonResponse({'message': 'Coordinates received successfully'})
+        print("(", latitude, ",", longitude, ")") # REMOVE LINE
+
+        if get_hint(request, latitude, longitude):
+            return JsonResponse({'message': 'Coordinates received successfully'})
+
     return JsonResponse({'message': 'Invalid request'})

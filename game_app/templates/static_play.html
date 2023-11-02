@@ -7,7 +7,7 @@
         var map;
         var marker;
         function initMap() {
-            var initialLocation = {lat: 38.0353, lng: -78.5035};
+            var initialLocation = {lat: {{ lat }}, lng: {{ lon }}};
 
             map = new google.maps.Map(document.getElementById('map'), {
                 center: initialLocation,
@@ -34,10 +34,7 @@
 
                 // Make an AJAX request to your Django view
                 fetch("{% url 'update_hint' %}?lat=" + latitude + "&lng=" + longitude)
-                    .then(response => response.json())
-                    .then(data => {
-                        alert("Coordinates sent to the server!");
-                    });
+                    .then(response => response.json());
             });
 
 
@@ -57,7 +54,7 @@
 </head>
 <body>
     <div id="map"></div>
-    <H1>Request a Hint!</H1>
+    <H1>{{ hint }}</H1>
     <button id="getHint">GET HINT</button>
 </body>
 </html>

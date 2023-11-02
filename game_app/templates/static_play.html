@@ -28,18 +28,19 @@
 
             // Event listener for the button click
             document.getElementById('getHint').addEventListener('click', function () {
-                const center = map.getCenter(); // Get the current map center
-                const latitude = center.lat();
-                const longitude = center.lng();
+                const markerPosition = marker.getPosition();
+                const latitude = markerPosition.lat();
+                const longitude = markerPosition.lng();
 
-                // Make an AJAX request to your Django view
+                // From: ChatGPT
+                // Used: Making an AJAX request to your Django view
                 fetch("{% url 'update_hint' %}?lat=" + latitude + "&lng=" + longitude)
-                    .then(response => response.json());
+                    .then(response => response.json())
+                    .then(data => {
+                    // After the AJAX request is complete, refresh the page
+                    location.reload();
+                });
             });
-
-
-
-
 
         }
 

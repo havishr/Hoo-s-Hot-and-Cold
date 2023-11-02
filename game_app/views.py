@@ -5,6 +5,8 @@ from .forms import GameForm
 
 from .models import Game, ActiveGame
 from django.views.generic import UpdateView, TemplateView, DetailView, ListView
+from game_app.play import *
+from django.http import JsonResponse
 
 
 def add_game(request):
@@ -64,11 +66,21 @@ def deny_game(request, pk):
     return redirect('approval')
 
 
-def static_play(TemplateView):
-    active_game = ActiveGame.objects.select_related().filter(user=request.user)
+class StaticPlay(TemplateView):
+    template_name = "static_play.html"
 
-    return render(request, 'static_play.html')
+    # active_game = ActiveGame.objects.select_related().filter(user=request.user)
 
 
-def get_hint(request):
-    redirect('static_play')
+# From: ChatGPT
+# Used: How to set up a function that handles AJAX requests
+def update_hint(request):
+    if request.method == 'GET':
+        # This part was not from ChatGPT
+        latitude = request.GET.get('lat', None)
+        longitude = request.GET.get('lng', None)
+        print("(", latitude, ",", longitude, ")")
+        get_hint(request, latitude, longitude)
+
+        return JsonResponse({'message': 'Coordinates received successfully'})
+    return JsonResponse({'message': 'Invalid request'})

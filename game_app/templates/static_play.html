@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Location</title>
+    <title>Hoo's Hot | Game</title>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4E9uAdgpAZNzSTNIofmkZdKAAIE37X4&callback=initMap" async defer></script>
     <script>
         var map;
@@ -25,6 +25,25 @@
                 document.getElementById('id_longitude').value = evt.latLng.lng().toFixed(6);
             });
 
+
+            // Event listener for the button click
+            document.getElementById('getHint').addEventListener('click', function () {
+                const center = map.getCenter(); // Get the current map center
+                const latitude = center.lat();
+                const longitude = center.lng();
+
+                // Make an AJAX request to your Django view
+                fetch("{% url 'update_hint' %}?lat=" + latitude + "&lng=" + longitude)
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("Coordinates sent to the server!");
+                    });
+            });
+
+
+
+
+
         }
 
 
@@ -37,6 +56,7 @@
     </style>
 </head>
 <body>
+    <div id="map"></div>
     <H1>Request a Hint!</H1>
     <button id="getHint">GET HINT</button>
 </body>

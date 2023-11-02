@@ -11,5 +11,6 @@ urlpatterns = [
     path('deny/<int:pk>/', views.deny_game, name='deny_game'),
 
     # Game play urls
-    path('static/play', views.static_play, name='static_play')
+    path('play/static/', views.StaticPlay.as_view(), name='static_play'),
+    path('update/hint/', views.update_hint, name='update_hint'),
     ]

@@ -27,6 +27,7 @@ def create_user(username='reg user', password='regpass123', is_admin=False):
             is_admin=is_admin,
         )
 
+
 class ApproveViewTests(TestCase):
     # Sets up the two user types for testing
     # From: ChatGPT

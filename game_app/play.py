@@ -14,7 +14,10 @@ def geo_distance(lat_0, lon_0, lat_1, lon_1):
 
 
 def get_hint(request, guess_lat, guess_lon):
-    active_game = ActiveGame.objects.select_related().filter(user=request.user)
+    try:
+        active_game = ActiveGame.objects.get(user=request.user)
+    except ActiveGame.DoesNotExist:
+        return False
     game = active_game.game
 
     prev_dist = geo_distance(active_game.last_latitude, active_game.last_longitude, game.latitude, game.longitude)
@@ -32,3 +35,6 @@ def get_hint(request, guess_lat, guess_lon):
 
     if guess_dist < DESTINATION_RADIUS:
         active_game.is_finished = True
+
+    active_game.save()
+    return True

@@ -5,6 +5,8 @@ from .forms import GameForm
 
 from .models import Game, ActiveGame
 from django.views.generic import UpdateView, TemplateView, DetailView, ListView
+from game_app.play import *
+from django.http import JsonResponse
 
 
 def add_game(request):
@@ -64,11 +66,74 @@ def deny_game(request, pk):
     return redirect('approval')
 
 
-def static_play(TemplateView):
-    active_game = ActiveGame.objects.select_related().filter(user=request.user)
+def static_play(request):
+    # Must be logged in to play the game
+    if not request.user.is_authenticated:
+        return redirect('login_game')
 
-    return render(request, 'static_play.html')
+    try:
+        active_game = ActiveGame.objects.get(user=request.user)
+
+        context0 = {
+            'hint': active_game.get_curr_hint_display(),
+            'lat': active_game.last_latitude,
+            'lon': active_game.last_longitude,
+        }
+        context1 = {
+            'name': active_game.game.name,
+            'hint_count': active_game.hint_counter,
+        }
+        if active_game.is_finished:
+            return render(request, 'completed_game.html', context1)
+        return render(request, 'static_play.html', context0)
+    except ActiveGame.DoesNotExist:
+        return render(request, 'static_no_game.html')
+
+    # Should be unreachable
+    return HttpResponseForbidden("If you're seeing this, something went really wrong...")
 
 
-def get_hint(request):
-    redirect('static_play')
+# From: ChatGPT
+# Used: How to set up a function that handles AJAX requests
+def update_hint(request):
+    if request.method == 'GET':
+
+        # This part was not from ChatGPT
+        latitude = request.GET.get('lat', None)
+        longitude = request.GET.get('lng', None)
+
+        print("(", latitude, ",", longitude, ")")  # REMOVE LINE
+
+        if get_hint(request, latitude, longitude):
+            return JsonResponse({'message': 'Coordinates received successfully'})
+
+    return JsonResponse({'message': 'Invalid request'})
+
+
+# View for getting the tutorial
+def tutorial(request):
+    if not request.user.is_authenticated:
+        return redirect('login_game')
+
+    try:
+        # Remove any of the user's previous active games
+        active_game = ActiveGame.objects.get(user=request.user)
+        active_game.delete()
+    except ActiveGame.DoesNotExist:
+        do_nothing = 0
+        # Do nothing if the user has no active games
+
+    user = request.user
+    game = None  # Should be set to the tutorial game
+    try:
+        game = Game.objects.get(name='Rotunda')
+    except Game.DoesNotExist:
+        game = Game.objects.create(name="Rotunda", is_approved=True,
+                                   latitude=38.035324, longitude=-78.503435)
+
+    # Create the user's new active game
+    ActiveGame.objects.create(user=user, game=game, hint_counter=0,
+                              last_latitude=38.032243, last_longitude=-78.514473,
+                              is_finished=False, curr_hint=ActiveGame.Hint.NONE)
+
+    return redirect('static_play')

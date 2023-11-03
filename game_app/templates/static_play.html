@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Location</title>
+    <title>Hoo's Hot | Game</title>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4E9uAdgpAZNzSTNIofmkZdKAAIE37X4&callback=initMap" async defer></script>
     <script>
         var map;
         var marker;
         function initMap() {
-            var initialLocation = {lat: 38.0353, lng: -78.5035};
+            var initialLocation = {lat: {{ lat }}, lng: {{ lon }}};
 
             map = new google.maps.Map(document.getElementById('map'), {
                 center: initialLocation,
@@ -25,6 +25,23 @@
                 document.getElementById('id_longitude').value = evt.latLng.lng().toFixed(6);
             });
 
+
+            // Event listener for the button click
+            document.getElementById('getHint').addEventListener('click', function () {
+                const markerPosition = marker.getPosition();
+                const latitude = markerPosition.lat();
+                const longitude = markerPosition.lng();
+
+                // From: ChatGPT
+                // Used: Making an AJAX request to your Django view
+                fetch("{% url 'update_hint' %}?lat=" + latitude + "&lng=" + longitude)
+                    .then(response => response.json())
+                    .then(data => {
+                    // After the AJAX request is complete, refresh the page
+                    location.reload();
+                });
+            });
+
         }
 
 
@@ -37,7 +54,8 @@
     </style>
 </head>
 <body>
-    <H1>Request a Hint!</H1>
+    <div id="map"></div>
+    <H1>{{ hint }}</H1>
     <button id="getHint">GET HINT</button>
 </body>
 </html>

@@ -69,7 +69,7 @@ def deny_game(request, pk):
 def static_play(request):
     # Must be logged in to play the game
     if not request.user.is_authenticated:
-        return HttpResponseForbidden("Must be logged in to play!")
+        return redirect('login_game')
 
     try:
         active_game = ActiveGame.objects.get(user=request.user)
@@ -102,9 +102,38 @@ def update_hint(request):
         latitude = request.GET.get('lat', None)
         longitude = request.GET.get('lng', None)
 
-        print("(", latitude, ",", longitude, ")") # REMOVE LINE
+        print("(", latitude, ",", longitude, ")")  # REMOVE LINE
 
         if get_hint(request, latitude, longitude):
             return JsonResponse({'message': 'Coordinates received successfully'})
 
     return JsonResponse({'message': 'Invalid request'})
+
+
+# View for getting the tutorial
+def tutorial(request):
+    if not request.user.is_authenticated:
+        return redirect('login_game')
+
+    try:
+        # Remove any of the user's previous active games
+        active_game = ActiveGame.objects.get(user=request.user)
+        active_game.delete()
+    except ActiveGame.DoesNotExist:
+        do_nothing = 0
+        # Do nothing if the user has no active games
+
+    user = request.user
+    game = None  # Should be set to the tutorial game
+    try:
+        game = Game.objects.get(name='Rotunda')
+    except Game.DoesNotExist:
+        game = Game.objects.create(name="Rotunda", is_approved=True,
+                                   latitude=38.035324, longitude=-78.503435)
+
+    # Create the user's new active game
+    ActiveGame.objects.create(user=user, game=game, hint_counter=0,
+                              last_latitude=38.032243, last_longitude=-78.514473,
+                              is_finished=False, curr_hint=ActiveGame.Hint.NONE)
+
+    return redirect('static_play')

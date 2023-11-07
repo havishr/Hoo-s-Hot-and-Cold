@@ -160,7 +160,7 @@ def get_easy(request):
     try:
         # From: https://stackoverflow.com/questions/22816704/django-get-a-random-object
         # Author: lukeaus
-        all_games = list(Game.objects.all())
+        all_games = list(Game.objects.filter(is_approved=True))
         rand_game = random.choice(all_games)
     except Game.DoesNotExist:
         # No games available to play

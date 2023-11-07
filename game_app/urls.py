@@ -14,4 +14,5 @@ urlpatterns = [
     path('play/static/', views.static_play, name='static_play'),
     path('update/hint/', views.update_hint, name='update_hint'),
     path('tutorial', views.tutorial, name='tutorial'),
+    path('random', views.get_easy, name='random'),
     ]

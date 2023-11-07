@@ -7,7 +7,10 @@ from .models import Game, ActiveGame
 from django.views.generic import UpdateView, TemplateView, DetailView, ListView
 from game_app.play import *
 from django.http import JsonResponse
+import random
 
+# Radius within which the initial start location can be assigned
+START_RADIUS = 0.011432
 
 def add_game(request):
     if request.method == 'POST':
@@ -134,6 +137,42 @@ def tutorial(request):
     # Create the user's new active game
     ActiveGame.objects.create(user=user, game=game, hint_counter=0,
                               last_latitude=38.032243, last_longitude=-78.514473,
+                              is_finished=False, curr_hint=ActiveGame.Hint.NONE)
+
+    return redirect('static_play')
+
+
+# View for getting the tutorial
+def get_easy(request):
+    if not request.user.is_authenticated:
+        return redirect('login_game')
+
+    try:
+        # Remove any of the user's previous active games
+        active_game = ActiveGame.objects.get(user=request.user)
+        active_game.delete()
+    except ActiveGame.DoesNotExist:
+        do_nothing = 0
+        # Do nothing if the user has no active games
+
+    user = request.user
+    rand_game = None  # Should be set to the tutorial game
+    try:
+        # From: https://stackoverflow.com/questions/22816704/django-get-a-random-object
+        # Author: lukeaus
+        all_games = list(Game.objects.all())
+        rand_game = random.choice(all_games)
+    except Game.DoesNotExist:
+        # No games available to play
+        redirect('home')
+
+    # Initialize a random start location, centered on the tennis courts
+    init_lat = 38.038832 + START_RADIUS * random.uniform(-1, 1)
+    init_lon = -78.506526 + START_RADIUS * random.uniform(-1, 1)
+
+    # Create the user's new active game
+    ActiveGame.objects.create(user=user, game=rand_game, hint_counter=0,
+                              last_latitude=init_lat, last_longitude=init_lon,
                               is_finished=False, curr_hint=ActiveGame.Hint.NONE)
 
     return redirect('static_play')

@@ -209,6 +209,7 @@ LOGOUT_REDIRECT_URL = "/"
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "SCOPE": [
+            "openid",
             "profile",
             "email"
         ],

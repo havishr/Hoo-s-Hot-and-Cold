@@ -20,7 +20,10 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ON_HEROKU = os.environ.get('ON_HEROKU')
 DEBUG = True
+if ON_HEROKU:
+    DEBUG = False
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -36,11 +39,11 @@ SECRET_KEY = os.environ.get(
 
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
 ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com', 'localhost', '127.0.0.1']
-
+if ON_HEROKU:
+    ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com']
 # Application definition
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
 SITE_ID = 5
-ON_HEROKU = os.environ.get('ON_HEROKU')
 if ON_HEROKU:
     SITE_ID = 5
 

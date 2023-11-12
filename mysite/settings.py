@@ -43,9 +43,9 @@ if ON_HEROKU:
     ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com']
 # Application definition
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
-SITE_ID = 5
+SITE_ID = 6
 if ON_HEROKU:
-    SITE_ID = 5
+    SITE_ID = 6
 
 INSTALLED_APPS = [
     # From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
@@ -138,16 +138,15 @@ if ON_HEROKU:
     }
     # print(os.environ.get('DATABASE_URL'))
 else:
-    print("\n\n\n=======\nlocal\n=======\n\n\n\n") # REMOVE !!!
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-    # DATABASES = {
-    #     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    # }
+#     DATABASES = {
+#         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+#     }
 
 
 # Password validation

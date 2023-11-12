@@ -138,6 +138,7 @@ if ON_HEROKU:
     }
     # print(os.environ.get('DATABASE_URL'))
 else:
+    print("\n\n\n=======\nlocal\n=======\n\n\n\n") # REMOVE !!!
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

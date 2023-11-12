@@ -108,27 +108,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
-# if IS_HEROKU_APP:
-#         DATABASES = {
-#         "default": dj_database_url.config(
-#             conn_max_age=600,
-#             conn_health_checks=True,
-#             ssl_require=True,
-#         ),
-#     }
-#
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-
 ON_HEROKU = os.environ.get('ON_HEROKU')
 
 
@@ -211,6 +190,9 @@ AUTH_USER_MODEL = 'oauth_app.AppUser'
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+SESSION_ENGINE = "django.contrib.sessions.backends.db"  # or another backend
+SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
 
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
 SOCIALACCOUNT_PROVIDERS = {

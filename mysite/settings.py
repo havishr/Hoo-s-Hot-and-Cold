@@ -45,7 +45,7 @@ if ON_HEROKU:
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
 SITE_ID = 6
 if ON_HEROKU:
-    SITE_ID = 1
+    SITE_ID = 2
 
 INSTALLED_APPS = [
     # From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py

@@ -156,7 +156,7 @@ class TemplateTests(TestCase):
         """
         Test that the addgame template displays the form correctly.
         """
-        response = self.client.get(reverse("add_game"))
+        response = self.client.get(reverse("submit"))
         self.assertContains(response, "Create Game")
         self.assertContains(response, "name")
         self.assertContains(response, "latitude")

@@ -4,6 +4,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <title>Hoo's Hot | Home</title>
         <style>
             /* Custom Styles */
             body {
@@ -59,7 +60,7 @@
                         {% csrf_token %}
                         <button type="submit" class="btn btn-primary btn-custom">Logout</button>
                     </form>
-                    <a href="add_game" class="btn btn-success btn-custom">Submit a Game</a>
+                    <a href="{% url 'submit' %}" class="btn btn-success btn-custom">Submit a Game</a>
                     <a href="{% url 'leaderboard' %}" class="btn btn-primary">View Leaderboard</a>
                     <a href="{% url 'static_play' %}" class="btn btn-success btn-custom">Continue Game</a>
                      <a href="{% url 'tutorial' %}" class="btn btn-primary btn-custom">Rotunda Tutorial</a>

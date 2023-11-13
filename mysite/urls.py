@@ -26,5 +26,5 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path('stats/', include('stats.urls')),
     path("", include("oauth_app.urls")),
-    path("add_game/", include("game_app.urls"))
+    path("game/", include("game_app.urls"))
 ]

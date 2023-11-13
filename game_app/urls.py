@@ -3,7 +3,7 @@ from django.urls import path
 from game_app.views import add_game
 
 urlpatterns = [
-    path('', add_game, name='add_game'),
+    path('submit', add_game, name='submit'),
     path("approval", views.ApproveView.as_view(), name='approval'),
 
     # URLS for approving and denying games, adapted from Django tutorial

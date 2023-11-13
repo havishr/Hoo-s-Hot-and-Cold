@@ -24,25 +24,25 @@
                 document.getElementById('id_latitude').value = evt.latLng.lat().toFixed(6);
                 document.getElementById('id_longitude').value = evt.latLng.lng().toFixed(6);
             });
+
+            // Event listener for the button click
+            document.getElementById('getHint').addEventListener('click', function () {
+                const markerPosition = marker.getPosition();
+                const latitude = markerPosition.lat();
+                const longitude = markerPosition.lng();
+
+                // From: ChatGPT
+                // Used: Making an AJAX request to your Django view
+                fetch("{% url 'update_hint' %}?lat=" + latitude + "&lng=" + longitude)
+                    .then(response => response.json())
+                    .then(data => {
+                    // After the AJAX request is complete, refresh the page
+                    location.reload();
+                });
+            });
+
         }
 
-        function getHint() {
-            const markerPosition = marker.getPosition();
-            const latitude = markerPosition.lat();
-            const longitude = markerPosition.lng();
-            fetch("{% url 'update_hint' %}?lat=" + latitude + "&lng=" + longitude)
-                .then(response => response.json())
-                .then(data => {
-                    // Assuming 'data.hint' is the property that contains your hint
-                    // Update the hint on the page without reloading
-                    document.getElementById('hint-text').innerText = data.hint;
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('getHint').addEventListener('click', getHint);
-        });
     </script>
     <style>
         body, html {

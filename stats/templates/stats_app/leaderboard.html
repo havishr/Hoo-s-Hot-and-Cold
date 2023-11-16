@@ -69,6 +69,7 @@
                             <th>Username</th>
                             <th>Score</th>
                             <th>Games Played</th>
+                            <th>Submissions Approved</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,6 +79,7 @@
                             <td>{{ stats.user.username }}</td>
                             <td>{{ stats.score }}</td>
                             <td>{{ stats.games_played }}</td>
+                            <td>{{stats.locations_approved }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

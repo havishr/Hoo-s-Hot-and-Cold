@@ -47,3 +47,6 @@ class ActiveGame(models.Model):
 
     # Has this game been completed
     is_finished = models.BooleanField(default=False)
+
+    # Used for score calculation
+    points_for_win = models.IntegerField(default=100)

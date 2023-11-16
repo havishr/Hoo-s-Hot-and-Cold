@@ -2,7 +2,7 @@ from django.urls import reverse
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from .forms import GameForm
-
+from stats.models import *
 from .models import Game, ActiveGame
 from django.views.generic import UpdateView, TemplateView, DetailView, ListView
 from game_app.play import *
@@ -56,6 +56,8 @@ def approve_game(request, pk):
         game = Game.objects.get(pk=pk)
         game.is_approved = True
         game.save()
+        user.stats.locations_approved += 1
+        user_stats.save()
     return redirect('approval')
 
 

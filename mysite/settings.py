@@ -191,6 +191,10 @@ AUTH_USER_MODEL = 'oauth_app.AppUser'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
+# If on Heroku, redirect to use HTTPS
+if ON_HEROKU:
+    SECURE_SSL_REDIRECT = True
+
 SESSION_ENGINE = "django.contrib.sessions.backends.db"  # or another backend
 SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
 

@@ -62,6 +62,13 @@
         <div class="col-lg-8 col-md-10">
             <div class="leaderboard-box">
                 <h1 class="text-center my-4">Leaderboard</h1>
+
+                <div class="text-center mb-3">
+                    <a href="?sort=score" class="btn black-outline navy-blue-btn">Sort by Score</a>
+                    <a href="?sort=games_played" class="btn black-outline uva-orange-btn">Sort by Games Played</a>
+                    <a href="?sort=locations_approved" class="btn black-outline navy-blue-btn">Sort by Submissions Approved</a>
+                </div>
+
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
@@ -99,3 +106,4 @@
         <a href="{% url 'home' %}" class="btn w-100 black-outline uva-orange-btn">Home Page</a>
     </div>
 </div>
+

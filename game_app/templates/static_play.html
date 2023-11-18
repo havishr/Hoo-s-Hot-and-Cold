@@ -20,6 +20,17 @@
                 map: map,
                 draggable: true
             });
+
+            // Add the destination as a marker if playing a tutorial
+            {% if is_tut %}
+                destination = new google.maps.Marker({
+                    position: {lat: {{ dlat }}, lng: {{ dlon }}},
+                    // From docs: https://developers.google.com/maps/documentation/javascript/markers#icons
+                    map: map,
+                    draggable: false
+                });
+            {% endif %}
+
             google.maps.event.addListener(marker, 'dragend', function(evt) {
                 document.getElementById('id_latitude').value = evt.latLng.lat().toFixed(6);
                 document.getElementById('id_longitude').value = evt.latLng.lng().toFixed(6);

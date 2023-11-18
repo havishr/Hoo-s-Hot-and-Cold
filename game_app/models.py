@@ -48,5 +48,8 @@ class ActiveGame(models.Model):
     # Has this game been completed
     is_finished = models.BooleanField(default=False)
 
+    # Used for special active games played as tutorials
+    is_tutorial = models.BooleanField(default=False)
+
     # Used for score calculation
     points_for_win = models.IntegerField(default=100)

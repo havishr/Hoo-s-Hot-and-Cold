@@ -141,6 +141,9 @@ def tutorial(request):
     user = request.user
     game = None  # Should be set to the tutorial game
     try:
+        # From: https://stackoverflow.com/questions/22816704/django-get-a-random-object
+        # Author: lukeaus
+        # Used: Getting a random instance
         all_games = list(Game.objects.filter(is_approved=True))
         game = random.choice(all_games)
     except Game.DoesNotExist:
@@ -169,10 +172,11 @@ def get_easy(request):
         # Do nothing if the user has no active games
 
     user = request.user
-    rand_game = None  # Should be set to the tutorial game
+    rand_game = None  # Should be set to easy game
     try:
         # From: https://stackoverflow.com/questions/22816704/django-get-a-random-object
         # Author: lukeaus
+        # Used: Getting a random instance
         all_games = list(Game.objects.filter(is_approved=True))
         rand_game = random.choice(all_games)
     except Game.DoesNotExist:

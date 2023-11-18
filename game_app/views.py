@@ -12,6 +12,7 @@ import random
 # Radius within which the initial start location can be assigned
 START_RADIUS = 0.011432
 
+
 def add_game(request):
     if request.method == 'POST':
         form = GameForm(request.POST)
@@ -56,8 +57,8 @@ def approve_game(request, pk):
         game = Game.objects.get(pk=pk)
         game.is_approved = True
         game.save()
-        user.stats.locations_approved += 1
-        user_stats.save()
+        request.user.stats.locations_approved += 1
+        request.user.stats.save()
     return redirect('approval')
 
 
@@ -83,13 +84,24 @@ def static_play(request):
             'hint': active_game.get_curr_hint_display(),
             'lat': active_game.last_latitude,
             'lon': active_game.last_longitude,
+            'is_tut': False,
         }
         context1 = {
             'name': active_game.game.name,
             'hint_count': active_game.hint_counter,
         }
+        context2 = {
+            'hint': active_game.get_curr_hint_display(),
+            'lat': active_game.last_latitude,
+            'lon': active_game.last_longitude,
+            'dlat': active_game.game.latitude,
+            'dlon': active_game.game.longitude,
+            'is_tut': True,
+        }
         if active_game.is_finished:
             return render(request, 'completed_game.html', context1)
+        if active_game.is_tutorial:
+            return render(request, 'static_play.html', context2)
         return render(request, 'static_play.html', context0)
     except ActiveGame.DoesNotExist:
         return render(request, 'static_no_game.html')
@@ -106,8 +118,6 @@ def update_hint(request):
         # This part was not from ChatGPT
         latitude = request.GET.get('lat', None)
         longitude = request.GET.get('lng', None)
-
-        print("(", latitude, ",", longitude, ")")  # REMOVE LINE
 
         if get_hint(request, latitude, longitude):
             return JsonResponse({'message': 'Coordinates received successfully'})
@@ -131,15 +141,16 @@ def tutorial(request):
     user = request.user
     game = None  # Should be set to the tutorial game
     try:
-        game = Game.objects.get(name='Rotunda')
+        all_games = list(Game.objects.filter(is_approved=True))
+        game = random.choice(all_games)
     except Game.DoesNotExist:
-        game = Game.objects.create(name="Rotunda", is_approved=True,
-                                   latitude=38.035324, longitude=-78.503435)
+        # No games available to play
+        redirect('home')
 
     # Create the user's new active game
     ActiveGame.objects.create(user=user, game=game, hint_counter=0,
                               last_latitude=38.032243, last_longitude=-78.514473,
-                              is_finished=False, curr_hint=ActiveGame.Hint.NONE)
+                              is_finished=False, is_tutorial=True, curr_hint=ActiveGame.Hint.NONE)
 
     return redirect('static_play')
 

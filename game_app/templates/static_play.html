@@ -27,7 +27,10 @@
                     position: {lat: {{ dlat }}, lng: {{ dlon }}},
                     // From docs: https://developers.google.com/maps/documentation/javascript/markers#icons
                     map: map,
-                    draggable: false
+                    draggable: false,
+                    icon: {
+                    url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                    }
                 });
             {% endif %}
 

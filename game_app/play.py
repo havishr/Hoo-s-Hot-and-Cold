@@ -36,17 +36,16 @@ def get_hint(request, guess_lat, guess_lon):
 
     active_game.hint_counter += 1
     active_game.points_for_win -= 5
-    # Set as new last location so next hint can be checked against it
     active_game.last_latitude = guess_lat
     active_game.last_longitude = guess_lon
 
     if guess_dist < DESTINATION_RADIUS:
         active_game.is_finished = True
-        # Save stats
-        user_stats, created = UserStats.objects.get_or_create(user=active_game.user)
-        user_stats.games_played += 1
-        user_stats.score += active_game.points_for_win  # Replace with actual score logic
-        user_stats.save()
+        if not active_game.is_tutorial:
+            user_stats, created = UserStats.objects.get_or_create(user=active_game.user)
+            user_stats.games_played += 1
+            user_stats.score += active_game.points_for_win
+            user_stats.save()
 
     active_game.save()
     return True

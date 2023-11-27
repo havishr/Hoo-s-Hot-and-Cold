@@ -104,10 +104,7 @@ def static_play(request):
             return render(request, 'static_play.html', context2)
         return render(request, 'static_play.html', context0)
     except ActiveGame.DoesNotExist:
-        return render(request, 'static_no_game.html')
-
-    # Should be unreachable
-    return HttpResponseForbidden("If you're seeing this, something went really wrong...")
+        return HttpResponseForbidden("No game associated with this user.")
 
 
 # From: ChatGPT

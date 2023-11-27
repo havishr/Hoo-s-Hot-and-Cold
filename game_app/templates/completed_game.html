@@ -1,10 +1,13 @@
 <html>
     <head>
         <title>Hoo's Hot | Results</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body>
-        <a href="{% url 'home' %}">Home Page</a>
-        <h1>You found {{ name }}!</h1>
-        <h3>Hints used: {{ hint_count }}</h3>
+        <div class="text-center">
+            <h1>You found {{ name }}!</h1>
+            <h3>Hints used: {{ hint_count }}</h3>
+            <a href="{% url 'home' %}" class="btn btn-primary btn-custom">Home</a>
+        </div>
     </body>
 </html>

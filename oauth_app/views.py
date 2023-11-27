@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
-
+from game_app.models import *
 
 # Create your views here.
 
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
 def home(request):
     if request.user.is_authenticated:
-        return render(request, "home.html")
+        # Check if the user has a game currently, should only ever have 1 or 0
+        has_game = ActiveGame.objects.filter(user=request.user).exists()
+        return render(request, "home.html", {"has_game": has_game})
     return render(request, "login.html")
 
 

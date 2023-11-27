@@ -62,7 +62,9 @@
                     </form>
                     <a href="{% url 'submit' %}" class="btn btn-success btn-custom">Submit a Game</a>
                     <a href="{% url 'leaderboard' %}" class="btn btn-primary">View Leaderboard</a>
-                    <a href="{% url 'static_play' %}" class="btn btn-success btn-custom">Continue Game</a>
+                    {% if has_game %}
+                        <a href="{% url 'static_play' %}" class="btn btn-success btn-custom">Continue Game</a>
+                    {% endif %}
                      <a href="{% url 'tutorial' %}" class="btn btn-primary btn-custom">Tutorial</a>
                     <!-- Dropdown for Play -->
                     <div class="btn-group">

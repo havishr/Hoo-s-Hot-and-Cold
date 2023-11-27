@@ -77,7 +77,7 @@
     <div class="container my-4">
         <form method="post">
             {% csrf_token %}
-
+    
             <!-- Google Map with black outline -->
             <div id="map" class="mb-3 black-outline"></div>
             
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </div>
-
+    
             <!-- Hidden Latitude and Longitude Fields -->
             <div class="d-none">
                 {{ form.latitude }}
@@ -106,24 +106,21 @@
                         <button type="submit" class="btn btn-success w-100 black-outline">Create Game</button>
                     </div>
                 </div>
-                <div style="height: 10px;">
-                    
-                </div>
-                <!-- Return to Login Button -->
-                <div class="row button-margin">
-                    <div class="col-6">
-                        <a href="{% url 'login_game' %}" class="btn btn-primary w-100 black-outline navy-blue-btn">Return to Login</a>
-                    </div>
-                    <!-- Go to Home Page Button -->
-                    <div class="col-6">
-                        <a href="{% url 'home' %}" class="btn btn-info w-100 black-outline uva-orange-btn">Home Page</a>
             </div>
-
+            
+            <!-- Go to Home Page Button -->
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <!-- Centered Home Page Button -->
+                        <a href="{% url 'home' %}" class="btn btn-info w-50 black-outline uva-orange-btn">Home Page</a>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
     <!-- Include Bootstrap JavaScript at the end of your document -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    

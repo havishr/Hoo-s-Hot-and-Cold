@@ -47,7 +47,7 @@
         <style>
             /* Map styling */
             #map {
-                height: 600px;
+                height: 70%;
                 width: 70%; 
                 margin: 0 auto; /* This will center the map in its parent container */
             }
@@ -62,6 +62,10 @@
                 font-size: 24px;
                 font-weight: bold;
                 text-align: center; 
+                color: white;
+                background-color: #000080;
+                width: 70%;
+                margin: 0 auto;
             }
 
             
@@ -125,15 +129,17 @@
         </div>
     </div>
 {% endif %}
-<!-- Return to Login and Home Page Buttons -->
-<div class="buttons-container fixed-bottom mb-3">
-    <div class="map-button">
-        <a href="{% url 'login_game' %}" class="btn w-100 black-outline navy-blue-btn">Return to Login</a>
+    <!-- Return to Login and Home Page Buttons -->
+    <div class="buttons-container mb-3" style="position:fixed;top:0;left:0">
+        <div class="map-button">
+            <a href="{% url 'login_game' %}" class="btn w-50 black-outline navy-blue-btn">Return to Login</a>
+        </div>
     </div>
-    <div class="map-button">
-        <a href="{% url 'home' %}" class="btn w-100 black-outline uva-orange-btn">Home Page</a>
+    <div class="buttons-container mb-3" style="position:fixed;top:60;left:0">
+        <div class="map-button">
+            <a href="{% url 'home' %}" class="btn w-50 black-outline uva-orange-btn">Home Page</a>
+        </div>
     </div>
-</div>
 </div>
 
     <!-- Include Bootstrap JavaScript at the end of your document -->

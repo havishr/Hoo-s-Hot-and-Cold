@@ -25,6 +25,8 @@ class ActiveGame(models.Model):
     class Hint(models.TextChoices):
         HOT = "H", _("HOT")
         COLD = "C", _("COLD")
+        WARM = "W", _("WARM")
+        COOLER = "CR", _("COOLER")
         NONE = "N", _("REQUEST HINT")
 
     # The user playing the game
@@ -35,7 +37,7 @@ class ActiveGame(models.Model):
 
     # Track number of hints requested and what is the current hint
     curr_hint = models.CharField(
-        max_length=1,
+        max_length=2,
         choices=Hint.choices,
         default=Hint.NONE
     )

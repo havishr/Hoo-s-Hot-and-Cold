@@ -29,10 +29,14 @@ def get_hint(request, guess_lat, guess_lon):
     prev_dist = geo_distance(active_game.last_latitude, active_game.last_longitude, game.latitude, game.longitude)
     guess_dist = geo_distance(guess_lat, guess_lon, game.latitude, game.longitude)
 
-    if guess_dist < prev_dist:
+    if guess_dist < prev_dist / 2:
         active_game.curr_hint = "H"
-    else:
+    elif guess_dist < prev_dist:
+        active_game.curr_hint = "W"
+    elif guess_dist > prev_dist * 1.5:
         active_game.curr_hint = "C"
+    else:
+        active_game.curr_hint = "CR"
 
     active_game.hint_counter += 1
     active_game.points_for_win -= 5

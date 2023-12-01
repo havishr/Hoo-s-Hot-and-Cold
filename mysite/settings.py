@@ -43,7 +43,7 @@ if ON_HEROKU:
     ALLOWED_HOSTS = ['adv-software-dev-project-82c26c41941d.herokuapp.com']
 # Application definition
 # From https://www.youtube.com/watch?v=yO6PP0vEOMc
-SITE_ID = 7
+SITE_ID = 6
 if ON_HEROKU:
     # For Heroku, not local development, do not modify
     SITE_ID = 6

@@ -1,3 +1,9 @@
+###############################################################################
+# From: https://docs.djangoproject.com/en/4.2/ref/models/fields/
+# Used: How to set up an enum field
+###############################################################################
+
+
 from django.db import models
 from oauth_app.models import AppUser
 from django.utils.translation import gettext_lazy as _

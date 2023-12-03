@@ -1,3 +1,9 @@
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Initial setup of routing
+###############################################################################
+
 from django.urls import path, include
 from . import views
 

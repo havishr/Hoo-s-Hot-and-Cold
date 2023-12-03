@@ -1,3 +1,18 @@
+###############################################################################
+# Adapted from: Django practice
+# Used: General structure for how to display objects in a view
+###############################################################################
+# Adapted from: Django practice
+# Used: Creating a view that performs some action for an object instance
+###############################################################################
+# From: ChatGPT
+# Used: How to set up a function that handles AJAX requests
+###############################################################################
+# From: https://stackoverflow.com/questions/22816704/django-get-a-random-object
+# Author: lukeaus
+# Used: Getting a random instance of an object
+###############################################################################
+
 from django.urls import reverse
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
@@ -115,11 +130,15 @@ def static_play(request):
 def update_hint(request):
     if request.method == 'GET':
 
-        # This part was not from ChatGPT
+        # This part was adapted from ChatGPT
+        # Saw how to access request content but
+        # changed it to grab the lat and lon instead
         latitude = request.GET.get('lat', None)
         longitude = request.GET.get('lng', None)
 
         if get_hint(request, latitude, longitude):
+            # This part was from ChatGPT
+            # Specifically: how to send JSON response
             return JsonResponse({'message': 'Coordinates received successfully'})
 
     return JsonResponse({'message': 'Invalid request'})

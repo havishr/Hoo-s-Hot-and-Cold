@@ -1,3 +1,8 @@
+###############################################################################
+# From: ChatGPT (Edited example given to fit project, not exact copy paste)
+# Used: Setting up a new admin dashboard / page
+###############################################################################
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 

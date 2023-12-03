@@ -1,3 +1,11 @@
+###############################################################################
+# From: ChatGPT
+# Used: Setup function to create two test users for testing
+###############################################################################
+# From: Django tutorial
+# Used: Template to write test
+###############################################################################
+
 from django.test import TestCase
 from django.urls import reverse
 from oauth_app.models import AppUser

@@ -1,3 +1,9 @@
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Initial setup of routing
+###############################################################################
+
 """
 URL configuration for mysite project.
 

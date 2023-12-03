@@ -1,94 +1,271 @@
 {% load socialaccount %}
 {% load static %}
 
-<html>
-    <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <title>Hoo's Hot | Home</title>
-        <style>
-            /* Custom Styles */
-            body {
-                background-image: url("{% static 'images/test1.png' %}");
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center center;
-                font-family: Arial, sans-serif;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-                margin: 0;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Hoo's Hot | Home</title>
+    <style>
+
+        .welcome-text {
+            font-size: 4em; /* Larger font size */
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Playful font */
+            color: #ffffff; /* White color */
+            text-shadow: 2px 2px 4px #000000; /* Black shadow for better visibility */
+            margin-bottom: 0.5em; /* Spacing below the text */
+        }
+
+        /* Styling for the subtext */
+        .play-text {
+            font-size: 2em; /* Larger font size */
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Playful font */
+            color: #ffffff; /* White color */
+            text-shadow: 1px 1px 2px #000000; /* Black shadow for better visibility */
+            margin-bottom: 1em; /* Spacing below the text */
+        }
+
+        /* Additional styles for the buttons */
+        .btn-custom {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Matching the playful font theme */
+            font-size: 1.5em; /* Bigger button text */
+            padding: 20px 40px; /* Larger buttons */
+            /* Other styles remain unchanged */
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .bg-image {
+            background-image: url("{% static 'images/BtoR.png' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .header {
+            background-color: #007bff;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .header a {
+            float: left;
+            color: white;
+            text-align: center;
+            padding: 12px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+
+        .header a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .header a.active {
+            background-color: #666;
+            color: white;
+        }
+
+        .header-right {
+            float: right;
+        }
+
+        .main-content {
+            margin-top: 60px; /* Provide space for the fixed header */
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .faq-section {
+            background-image: url("{% static 'images/whiteB.jpg' %}"); /* Replace with your FAQ background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+
+        .faq-header {
+            font-size: 2.5em;
+            color: #222;
+            text-align: center;
+            margin-bottom: 0.5em;
+            padding-bottom: 0.25em;
+            border-bottom: 3px solid #00b4d8;
+            display: block;
+            width: 100%;
+        }
+
+        .faq-content {
+            margin-top: 1em;
+        }
+
+        .faq-content h2 {
+            font-size: 1.75em;
+            color: #222;
+            margin-bottom: 0.5em;
+        }
+
+        .faq-content p {
+            font-size: 1.25em;
+            line-height: 1.6;
+            margin-bottom: 1em;
+        }
+
+        /* Add additional styling for visual appeal */
+        .faq-content h2:before {
+            content: "▶ ";
+            color: #00b4d8; /* Adjust the color to match your theme */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .faq-header {
+                font-size: 2em;
+            }
+    
+            .faq-content h2 {
+                font-size: 1.5em;
             }
 
-            h1 {
-                font-size: 3.5em;
-                text-shadow: 2px 2px 4px #aaa, -2px -2px 4px #aaa, 2px -2px 4px #aaa, -2px 2px 4px #aaa; /* Giving it a cloudy effect */
-                margin-bottom: 20px; 
-                color: #ffffff; 
-                background-color: rgba(0,0,0,0.3);
-                padding: 15px;
-                border-radius: 15px;
+            .faq-content p {
+                font-size: 1.1em;
             }
+        }
 
-            .btn-login {
-                background-color: #007bff;
-                border: none;
-                padding: 15px 80px; /* Making the button wide */
-                border-radius: 50px; /* Circular effect */
-                font-size: 1.2em;
-                font-weight: 600;
-                box-shadow: 0 0 15px rgba(0,0,0,0.2); /* Subtle shadow for depth */
-                color: #ffffff; /* White text */
-                transition: all 0.3s ease; /* Smooth transition for hover effect */
-            }
 
-            .btn-login:hover {
-                background-color: #0056b3; /* Darker shade on hover */
-                box-shadow: 0 0 20px rgba(0,0,0,0.3); /* Enhanced shadow on hover */
-            }
-            
-        </style>
-    </head>
-    <body>
-        <div class="text-center">
-            <h1>Hoo's Hot and Cold?</h1>
+        .faq-header {
+            font-size: 2.5em;
+            color: #222;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #00b4d8; /* Or use the color that matches your style */
+            display: inline-block;
+            padding-bottom: 10px;
+        }
 
-                <h2>Hello, {{user.username}}!</h2>
-                <div class="btn-group mt-3" role="group" aria-label="Basic example">
-                    <!-- Logout form -->
-                    <form action="{% url 'account_logout' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary btn-custom">Logout</button>
-                    </form>
-                    <a href="{% url 'submit' %}" class="btn btn-success btn-custom">Submit a Game</a>
-                    <a href="{% url 'leaderboard' %}" class="btn btn-dark">View Leaderboard</a>
-                    {% if has_game %}
-                        <a href="{% url 'static_play' %}" class="btn btn-success btn-custom">Continue Game</a>
-                    {% endif %}
-                     <a href="{% url 'tutorial' %}" class="btn btn-primary btn-custom">Tutorial</a>
-                    <!-- Dropdown for Play -->
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-warning btn-custom dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Play
-                        </button>
-                        <div class="dropdown-menu">
-                            <!-- Add links to hard and easy game modes -->
-                            <a class="dropdown-item" href="{% url 'random_easy' %}">Easy</a>
-                            <a class="dropdown-item" href="{% url 'random_hard' %}">Hard</a>
-                        </div>
-                    </div>
+        .faq-section h2 {
+            font-size: 1.75em;
+            color: #222222;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }   
+
+        .faq-section p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+/* Additional styles for buttons and links as needed */
+
+
+        h1, h2, .centered-text {
+            color: #ffffff;
+            text-align: center;
+            margin: 0.5em;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            border: none;
+            padding: 15px 80px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* Additional styles */
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <a href="#home" class="logo">Hoo's Hot and Cold?</a>
+    <div class="header-right">
+        <a href="#home" class="active">Home</a>
+        <a href="{% url 'submit' %}">Submit a Game</a>
+        <a href="{% url 'leaderboard' %}">View Leaderboard</a>
+        {% if has_game %}
+            <a href="{% url 'static_play' %}">Continue Game</a>
+        {% endif %}
+        <a href="{% url 'tutorial' %}">Tutorial</a>
+        <a href="#faq">FAQ</a>
+    </div>
+</div>
+
+<div id="home" class="bg-image">
+    <div class="main-content">
+        <h1 class="welcome-text">Hello, {{ user.username }}!</h1>
+        <p class="play-text">Hit Play to Get Into a Game</p>
+        <div class="btn-group mt-3" role="group" aria-label="Basic example">
+            <!-- Logout form -->
+            <form action="{% url 'account_logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-custom">Logout</button>
+            </form>
+            <!-- Play button dropdown -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning btn-custom dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Play
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'random_easy' %}">Easy</a>
+                    <a class="dropdown-item" href="{% url 'random_hard' %}">Hard</a>
                 </div>
-                <div class="centered-text mt-4">
-                    Hit Play to get into a game
-                </div>
-                {% if user.is_admin %}
-                        <a href="{% url 'approval' %}" class="btn btn-secondary btn-custom">Approve Submissions</a>
-                {% endif %}
+            </div>
         </div>
+    </div>
+</div>
 
-        <!-- Include Bootstrap JavaScript at the end of your document -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </body>
+<div id="faq" class="faq-section">
+    <h1 class="faq-header">Hot & Cold FAQ</h1>
+    <div class="faq-content">
+        <h2>How to Submit a Game:</h2>
+        <p>Embark on your own creative adventure by tapping "Submit a Game". Navigate the map to drop the red pin on your secret spot. Give your hidden treasure a name, leave a crafty clue, and watch eager explorers follow the breadcrumbs to your challenge. Once your masterpiece is complete, cast it into the world with 'create a game' – your quest is now live for thrill-seekers to discover!</p>
+        
+        <h2>How to Play:</h2>
+        <p>Select "Play a Game" and choose your difficulty level to begin the treasure hunt. Drag the red marker across the map and press ‘get hint’ to uncover clues ranging from 'cold' to 'hot', guiding you to the prize. When 'hot' hints appear, victory is near! If your sleuthing skills lead you to the right spot, celebrate with a triumphant 'You found {name of location}!'. Let the games begin!</p>
+    </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

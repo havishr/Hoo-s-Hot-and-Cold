@@ -27,6 +27,7 @@ def add_game(request):
         'form': form,
         'default_lat': 38.053,  # UVA
         'default_lng': -78.5035,
+        'default_starting_hint': ""
     }
 
     return render(request, 'add_game.html', {'form': form})
@@ -85,6 +86,7 @@ def static_play(request):
             'lat': active_game.last_latitude,
             'lon': active_game.last_longitude,
             'is_tut': False,
+            'starting_hint': active_game.game.starting_hint,
         }
         context1 = {
             'name': active_game.game.name,
@@ -92,6 +94,7 @@ def static_play(request):
         }
         context2 = {
             'hint': active_game.get_curr_hint_display(),
+            'starting_hint': active_game.game.starting_hint,
             'lat': active_game.last_latitude,
             'lon': active_game.last_longitude,
             'dlat': active_game.game.latitude,

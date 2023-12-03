@@ -92,13 +92,23 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+            <div class="row">
+                <div class="col-12">
+                <!-- Apply black outline to the text input -->
+                <input type="text" name="{{ form.starting_hint.html_name }}" id="id_{{ form.starting_hint.html_name }}"
+                class="form-control black-outline" placeholder="Enter Starting Hint Here"
+                value="{{ form.starting_hint.value|default_if_none:'' }}" />
+                </div>
+            </div>
+            </div>
     
             <!-- Hidden Latitude and Longitude Fields -->
             <div class="d-none">
                 {{ form.latitude }}
                 {{ form.longitude }}
             </div>
-            
+
             <!-- Submit Button with black outline -->
             <div class="form-group">
                 <div class="row">

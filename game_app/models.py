@@ -16,8 +16,10 @@ class Game(models.Model):
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
 
+    starting_hint = models.CharField(max_length=128, default="")
+
     def __str__(self):
-        return f"({self.name}, approved: {self.is_approved}, {self.latitude}, {self.longitude})"
+        return f"({self.name}, approved: {self.is_approved}, {self.latitude}, {self.longitude},{self.starting_hint})"
 
 
 class ActiveGame(models.Model):
@@ -29,11 +31,14 @@ class ActiveGame(models.Model):
         COOLER = "CR", _("COOLER")
         NONE = "N", _("REQUEST HINT")
 
+
+
     # The user playing the game
     user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
 
     # The game being played
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+
 
     # Track number of hints requested and what is the current hint
     curr_hint = models.CharField(

@@ -1,3 +1,9 @@
+###############################################################################
+# URL: https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
+# Author: Kurt Peek
+# Used: How to use GeoPy to find distance between two points
+###############################################################################
+
 from geopy.distance import geodesic
 from oauth_app.models import *
 from stats.models import *
@@ -14,6 +20,9 @@ DESTINATION_RADIUS = 20
 
 # Returns distance in meters
 def geo_distance(lat_0, lon_0, lat_1, lon_1):
+    # URL: https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
+    # Author: Kurt Peek
+    # Used: How to use GeoPy to find distance between two points
     point_0 = (lat_0, lon_0)
     point_1 = (lat_1, lon_1)
     return geodesic(point_0, point_1).kilometers * 1000

@@ -1,3 +1,8 @@
+###############################################################################
+# From: ChatGPT
+# Used: Extend AbstractUser to make a new model, fields were not from ChatGPT
+###############################################################################
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 

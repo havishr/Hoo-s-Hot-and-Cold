@@ -1,3 +1,14 @@
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Rendering home page; however, the code was adapted to check
+# authorization and if the user has an active game
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Creating the logout view
+###############################################################################
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from game_app.models import *

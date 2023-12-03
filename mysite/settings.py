@@ -1,3 +1,58 @@
+###############################################################################
+# From: ChatGPT
+# Used: declaring new user model
+###############################################################################
+# From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+# Used: Setting up secret key
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Setting the SITE_ID
+###############################################################################
+# From https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+# Used: Setting up whitenoise
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Django OAuth installed app declarations
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Setting up TEMPLATES
+###############################################################################
+# From: https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+# Used: Password validation
+###############################################################################
+# From: https://docs.djangoproject.com/en/4.2/topics/i18n/
+# Used For: Internationalization
+###############################################################################
+# From: https://docs.djangoproject.com/en/4.2/howto/static-files/
+# Used: How to set up static files
+###############################################################################
+# From: https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+# Used: Setting up static root
+###############################################################################
+# From: https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+# Used: Setting up storages config
+###############################################################################
+# From: https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+# Used: Setting up default primary key field type
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Setting up authentication backends
+###############################################################################
+# From: ChatGPT
+# Used: Declaring new user model
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Login and logout routing / redirection
+###############################################################################
+# From https://www.youtube.com/watch?v=yO6PP0vEOMc
+# Author: Akamai DevRel
+# Used: Setting up social account provider for Google
+###############################################################################
 """
 Django settings for mysite project.
 
@@ -185,6 +240,8 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend"
 )
 
+# From: ChatGPT
+# Used: declaring new user model
 # New user model
 AUTH_USER_MODEL = 'oauth_app.AppUser'
 

@@ -119,7 +119,8 @@ class GameFormTests(TestCase):
         data = {
             'name': 'New Game',
             'latitude': 38.0353,
-            'longitude': -78.5035
+            'longitude': -78.5035,
+            'starting_hint': 'Some Hint',
         }
         form = GameForm(data)
         self.assertTrue(form.is_valid())

@@ -106,7 +106,7 @@
     </style>
 </head>
 <body>
-    <a href="{% url 'home' %}">Home Page</a>
+    <button onclick="location.href='{% url 'home' %}'" style="margin-bottom: 20px;">Home Page</button>
     <div id="map"></div>
     <h1 id="hint-text">{{ hint }}</h1> <!-- The hint will be displayed here -->
     <button id="getHint">GET HINT</button> <!-- The functional 'Get Hint' button -->

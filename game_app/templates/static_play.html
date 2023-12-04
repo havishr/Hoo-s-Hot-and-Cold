@@ -103,6 +103,17 @@
             background: rgba(255, 255, 255, 0.9);
             margin-top: 20px;
         }
+        #starting-hint-text{
+            font-size: 1.6em;
+            color: black;
+            background-color: white;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            margin: 20px 0;
+            text-shadow: 1px 1px 2px #eeeeee;
+            text-align: center;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -110,7 +121,7 @@
     <div id="map"></div>
     <h1 id="hint-text">{{ hint }}</h1> <!-- The hint will be displayed here -->
     <button id="getHint">GET HINT</button> <!-- The functional 'Get Hint' button -->
-    <h2 id="starting_hint_text"> {{ starting_hint }}</h2>
+    <h2 id="starting-hint-text">Starting Hint: {{ starting_hint }}</h2>
 
     <!-- Hidden fields to hold the latitude and longitude values -->
     <input type="hidden" id="id_latitude" value="">

@@ -11,17 +11,23 @@
     <style>
 
         .welcome-text {
-            font-size: 4em; /* Larger font size */
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Playful font */
-            color: #ffffff; /* White color */
-            text-shadow: 2px 2px 4px #000000; /* Black shadow for better visibility */
-            margin-bottom: 0.5em; /* Spacing below the text */
+            font-size: 4em;
+            font-family: 'Roboto Thin', sans-serif; /* Modern and clean font */
+            font-weight: bold; /* Adds emphasis */
+            color: #ffffff;
+            text-shadow: 2px 2px 4px #000000;
+            margin-bottom: 0.5em;
+            text-transform: capitalize;
+            letter-spacing: 0.05em; /* Slight spacing between letters */
+            transition: color 0.3s ease; /* Smooth transition for interactive feel */
         }
+
+
 
         /* Styling for the subtext */
         .play-text {
             font-size: 2em; /* Larger font size */
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Playful font */
+            font-family: 'Roboto Thin', sans-serif; /* Playful font */
             color: #ffffff; /* White color */
             text-shadow: 1px 1px 2px #000000; /* Black shadow for better visibility */
             margin-bottom: 1em; /* Spacing below the text */
@@ -29,7 +35,7 @@
 
         /* Additional styles for the buttons */
         .btn-custom {
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Matching the playful font theme */
+            font-family: 'Roboto Thin', sans-serif; /* Matching the playful font theme */
             font-size: 1.5em; /* Bigger button text */
             padding: 20px 40px; /* Larger buttons */
             /* Other styles remain unchanged */
@@ -54,13 +60,15 @@
         }
 
         .header {
-            background-color: #007bff;
+            background-color: navy;
             overflow: hidden;
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 10;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Horizontal offset, vertical offset, blur radius, spread radius, color */
         }
+
 
         .header a {
             float: left;
@@ -191,7 +199,7 @@
         }
 
         .btn-custom {
-            background-color: #007bff;
+            background-color: navy;
             border: none;
             padding: 15px 80px;
             border-radius: 50px;
@@ -237,8 +245,8 @@
                 <button type="submit" class="btn-custom">Logout</button>
             </form>
             <div class="btn-group">
-                <button type="button" class="btn btn-warning btn-custom dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Play
+                <button type="button" class="btn-warning btn-custom" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Play
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{% url 'random_easy' %}">Easy</a>
